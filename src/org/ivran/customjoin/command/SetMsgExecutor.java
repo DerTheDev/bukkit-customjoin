@@ -14,7 +14,7 @@ public class SetMsgExecutor extends AbstractExecutor {
   private final FileConfiguration config;
 
   public SetMsgExecutor(CustomJoinPlugin plugin) {
-    super(plugin, "customjoin.setmessage");
+    super(plugin, new PermissionCheck("customjoin.set"));
     this.strings = plugin.getStrings();
     this.config = plugin.getConfig();
   }
