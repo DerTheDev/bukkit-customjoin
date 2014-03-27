@@ -35,11 +35,6 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
   }
 
   @Override
-  protected String getError(CommandSender sender, Command cmd, String[] args) {
-    return null;
-  }
-
-  @Override
   protected void execute(CommandSender sender, Command cmd, String[] args) {
     StringBuilder messageBuilder = new StringBuilder();
 

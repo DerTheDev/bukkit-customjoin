@@ -35,11 +35,6 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
   }
 
   @Override
-  protected String getError(CommandSender sender, Command cmd, String[] args) {
-    return null;
-  }
-
-  @Override
   protected void execute(CommandSender sender, Command cmd, String[] args) {
     String message = null;
 

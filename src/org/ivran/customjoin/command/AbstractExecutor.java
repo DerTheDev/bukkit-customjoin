@@ -27,16 +27,7 @@ public abstract class AbstractExecutor implements CommandExecutor {
   }
 
   /**
-   * Called before {@code execute}. Any and all permission cheking/argument
-   * validation should be done here.
-   * 
-   * @return {@code null} if everything is fine, an error message if the command
-   *         cannot/should not be executed.
-   */
-  protected abstract String getError(CommandSender sender, Command cmd, String[] args);
-
-  /**
-   * Called after {@code getError} has ensured that the command can be executed.
+   * Called after it was ensured that the command can be executed.
    */
   protected abstract void execute(CommandSender sender, Command cmd, String[] args);
 
