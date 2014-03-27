@@ -8,7 +8,7 @@ import org.ivran.customjoin.CustomJoinPlugin;
 import org.ivran.customjoin.MessageType;
 import org.ivran.customjoin.Strings;
 
-public class SetMsgExecutor extends AbstractExecutor {
+public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
 
   private final Strings strings;
   private final FileConfiguration config;
@@ -18,19 +18,24 @@ public class SetMsgExecutor extends AbstractExecutor {
         new PermissionCheck("customjoin.set"),
         new ArgumentCountCheck(1, -1));
 
+    addCheck(this);
+
     this.strings = plugin.getStrings();
     this.config = plugin.getConfig();
   }
 
   @Override
-  protected String getError(CommandSender sender, Command cmd, String[] args) {
+  public void doCheck(CommandSender sender, Command cmd, String alias, String[] args) throws CheckException {
     try {
       MessageType.valueOf(args[0].toUpperCase());
     }
     catch (IllegalArgumentException e) {
-      return strings.format("Command.UnknownMessageType", args[0]);
+      throw new CheckException(strings.format("Command.UnknownMessageType", args[0]));
     }
+  }
 
+  @Override
+  protected String getError(CommandSender sender, Command cmd, String[] args) {
     return null;
   }
 
