@@ -1,6 +1,8 @@
 package org.ivran.customjoin.command;
 
-import org.bukkit.ChatColor;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,11 +12,14 @@ import org.ivran.customjoin.Strings;
 public abstract class AbstractExecutor implements CommandExecutor {
 
   private final Strings strings;
-  private final String permission;
+  private List<ICommandCheck> commandChecks;
 
-  public AbstractExecutor(CustomJoinPlugin plugin, String permission) {
+  public AbstractExecutor(CustomJoinPlugin plugin, ICommandCheck... commandChecks) {
     this.strings = plugin.getStrings();
-    this.permission = permission;
+    this.commandChecks = new ArrayList<ICommandCheck>();
+    for (ICommandCheck c : commandChecks) {
+      this.commandChecks.add(c);
+    }
   }
 
   /**
@@ -33,18 +38,15 @@ public abstract class AbstractExecutor implements CommandExecutor {
 
   @Override
   public final boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-    if (permission != null && !sender.hasPermission(permission)) {
-      sender.sendMessage(ChatColor.RED + strings.get("Command.NoPermission"));
-    }
-    else {
-      String error = getError(sender, cmd, args);
+    try {
+      for (ICommandCheck c : commandChecks) {
+        c.doCheck(sender, cmd, label, args);
+      }
 
-      if (error != null) {
-        sender.sendMessage(ChatColor.RED + error);
-      }
-      else {
-        execute(sender, cmd, args);
-      }
+      execute(sender, cmd, args);
+    }
+    catch (CheckException e) {
+      sender.sendMessage(strings.get("Color.Error") + strings.get(e.getMessage()));
     }
 
     return true;
