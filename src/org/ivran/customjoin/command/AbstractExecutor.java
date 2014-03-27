@@ -22,6 +22,10 @@ public abstract class AbstractExecutor implements CommandExecutor {
     }
   }
 
+  public void addCheck(ICommandCheck c) {
+    commandChecks.add(c);
+  }
+
   /**
    * Called before {@code execute}. Any and all permission cheking/argument
    * validation should be done here.
