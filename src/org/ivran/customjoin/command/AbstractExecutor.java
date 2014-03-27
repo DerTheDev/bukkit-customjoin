@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.ivran.customjoin.CustomJoinPlugin;
+import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.Strings;
 
 public abstract class AbstractExecutor implements CommandExecutor {
@@ -41,7 +42,8 @@ public abstract class AbstractExecutor implements CommandExecutor {
       execute(sender, cmd, args);
     }
     catch (CheckException e) {
-      sender.sendMessage(strings.get("Color.Error") + strings.get(e.getMessage()));
+      String message = strings.get("Color.Error") + strings.get(e.getMessage());
+      sender.sendMessage(FormatCodes.applyAll(message));
     }
 
     return true;
