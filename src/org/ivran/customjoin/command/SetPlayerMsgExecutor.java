@@ -3,6 +3,7 @@ package org.ivran.customjoin.command;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.CustomJoinPlugin;
 import org.ivran.customjoin.MessageType;
 import org.ivran.customjoin.Strings;
@@ -10,10 +11,12 @@ import org.ivran.customjoin.Strings;
 public class SetPlayerMsgExecutor extends AbstractExecutor {
 
   private final Strings strings;
+  private final FileConfiguration config;
 
   public SetPlayerMsgExecutor(CustomJoinPlugin plugin) {
     super(plugin, "customjoin.setplayermessage");
-    this.strings = new Strings("MessageBundle");
+    this.strings = plugin.getStrings();
+    this.config = plugin.getConfig();
   }
 
   @Override

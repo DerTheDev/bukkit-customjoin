@@ -4,18 +4,15 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.CustomJoinPlugin;
 import org.ivran.customjoin.Strings;
 
 public abstract class AbstractExecutor implements CommandExecutor {
 
-  protected FileConfiguration config;
   private final Strings strings;
-  private String permission;
+  private final String permission;
 
   public AbstractExecutor(CustomJoinPlugin plugin, String permission) {
-    this.config = plugin.getConfig();
     this.strings = plugin.getStrings();
     this.permission = permission;
   }
