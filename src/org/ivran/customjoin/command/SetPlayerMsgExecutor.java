@@ -14,17 +14,16 @@ public class SetPlayerMsgExecutor extends AbstractExecutor {
   private final FileConfiguration config;
 
   public SetPlayerMsgExecutor(CustomJoinPlugin plugin) {
-    super(plugin, new PermissionCheck("customjoin.setplayermessage"));
+    super(plugin,
+        new PermissionCheck("customjoin.setplayermessage"),
+        new ArgumentCountCheck(2, -1));
+
     this.strings = plugin.getStrings();
     this.config = plugin.getConfig();
   }
 
   @Override
   protected String getError(CommandSender sender, Command cmd, String[] args) {
-    if (args.length < 2) {
-      return strings.get("Command.SyntaxError");
-    }
-
     try {
       MessageType.valueOf(args[1].toUpperCase());
     }

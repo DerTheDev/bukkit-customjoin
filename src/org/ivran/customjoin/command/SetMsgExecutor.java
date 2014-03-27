@@ -14,17 +14,16 @@ public class SetMsgExecutor extends AbstractExecutor {
   private final FileConfiguration config;
 
   public SetMsgExecutor(CustomJoinPlugin plugin) {
-    super(plugin, new PermissionCheck("customjoin.set"));
+    super(plugin,
+        new PermissionCheck("customjoin.set"),
+        new ArgumentCountCheck(1, -1));
+
     this.strings = plugin.getStrings();
     this.config = plugin.getConfig();
   }
 
   @Override
   protected String getError(CommandSender sender, Command cmd, String[] args) {
-    if (args.length < 1) {
-      return strings.get("Command.SyntaxError");
-    }
-
     try {
       MessageType.valueOf(args[0].toUpperCase());
     }
