@@ -6,11 +6,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.CustomJoinPlugin;
 import org.ivran.customjoin.MessageType;
-import org.ivran.customjoin.Strings;
+import org.ivran.customjoin.R;
 
 public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCheck {
 
-  private final Strings strings;
   private final FileConfiguration config;
 
   public SetPlayerMsgExecutor(CustomJoinPlugin plugin) {
@@ -20,7 +19,6 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
 
     addCheck(this);
 
-    this.strings = plugin.getStrings();
     this.config = plugin.getConfig();
   }
 
@@ -30,7 +28,7 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
       MessageType.valueOf(args[1].toUpperCase());
     }
     catch (IllegalArgumentException e) {
-      throw new CheckException(strings.format("Command.UnknownMessageType", args[1]));
+      throw new CheckException(R.format("Command.UnknownMessageType", args[1]));
     }
   }
 
@@ -54,6 +52,6 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
     config.set(String.format("custom.%s.%s", type, player), message);
 
     sender.sendMessage(ChatColor.GRAY
-        + strings.format(message == null ? "Command.PlayerMessageDeleted" : "Command.PlayerMessageSet", player, type));
+        + R.format(message == null ? "Command.PlayerMessageDeleted" : "Command.PlayerMessageSet", player, type));
   }
 }

@@ -6,11 +6,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.CustomJoinPlugin;
 import org.ivran.customjoin.MessageType;
-import org.ivran.customjoin.Strings;
+import org.ivran.customjoin.R;
 
 public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
 
-  private final Strings strings;
   private final FileConfiguration config;
 
   public SetMsgExecutor(CustomJoinPlugin plugin) {
@@ -20,7 +19,6 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
 
     addCheck(this);
 
-    this.strings = plugin.getStrings();
     this.config = plugin.getConfig();
   }
 
@@ -30,7 +28,7 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
       MessageType.valueOf(args[0].toUpperCase());
     }
     catch (IllegalArgumentException e) {
-      throw new CheckException(strings.format("Command.UnknownMessageType", args[0]));
+      throw new CheckException(R.format("Command.UnknownMessageType", args[0]));
     }
   }
 
@@ -43,6 +41,6 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
     }
 
     config.set(String.format("format.%s", args[0]), messageBuilder.toString().trim());
-    sender.sendMessage(ChatColor.GRAY + strings.format("Command.MessageSet", args[0]));
+    sender.sendMessage(ChatColor.GRAY + R.format("Command.MessageSet", args[0]));
   }
 }

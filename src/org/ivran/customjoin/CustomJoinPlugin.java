@@ -11,16 +11,9 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   private PluginDescriptionFile pdf;
   private FileConfiguration config;
-  private Strings strings;
-
-  public Strings getStrings() {
-    return strings;
-  }
 
   @Override
   public void onEnable() {
-    strings = new Strings("MessagesBundle");
-
     config = getConfig();
     config.options().copyDefaults(true);
     pdf = getDescription();
@@ -30,12 +23,12 @@ public class CustomJoinPlugin extends JavaPlugin {
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(this));
 
     getServer().getPluginManager().registerEvents(new JoinLeaveListener(config), this);
-    getLogger().info(strings.format("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
+    getLogger().info(R.format("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
   }
 
   @Override
   public void onDisable() {
     saveConfig();
-    getLogger().info(strings.format("Plugin.Disabled", pdf.getName()));
+    getLogger().info(R.format("Plugin.Disabled", pdf.getName()));
   }
 }
