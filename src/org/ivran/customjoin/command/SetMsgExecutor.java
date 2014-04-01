@@ -1,6 +1,5 @@
 package org.ivran.customjoin.command;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -54,6 +53,6 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
     }
 
     config.set(String.format("format.%s", args[0]), message);
-    sender.sendMessage(ChatColor.GRAY + R.format("Command.MessageSet", args[0]));
+    sender.sendMessage(R.get("Color.Success") + R.format("Command.MessageSet", args[0]));
   }
 }

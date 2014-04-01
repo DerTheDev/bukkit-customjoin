@@ -1,6 +1,5 @@
 package org.ivran.customjoin.command;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -62,7 +61,7 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
 
     config.set(String.format("custom.%s.%s", type, player), message);
 
-    sender.sendMessage(ChatColor.GRAY
+    sender.sendMessage(R.get("Color.Success")
         + R.format(message == null ? "Command.PlayerMessageDeleted" : "Command.PlayerMessageSet", player, type));
   }
 }
