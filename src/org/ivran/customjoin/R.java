@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 public class R {
 
-  private static final ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle");
+  private static final ResourceBundle bundle = ResourceBundle.getBundle("MessagesBundle");
 
   public static String format(String key, Object... args) {
     return String.format(get(key), args);
