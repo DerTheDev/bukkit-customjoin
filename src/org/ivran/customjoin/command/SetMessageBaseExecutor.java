@@ -21,6 +21,10 @@ public abstract class SetMessageBaseExecutor extends AbstractExecutor implements
 
   @Override
   public void doCheck(CommandSender sender, Command cmd, String alias, String[] args) throws CheckException {
+    if (args.length <= 0) {
+      return;
+    }
+
     try {
       MessageType.valueOf(args[typeIndex].toUpperCase());
     }
