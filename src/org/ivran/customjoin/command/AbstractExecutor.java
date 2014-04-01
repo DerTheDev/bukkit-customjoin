@@ -35,12 +35,14 @@ public abstract class AbstractExecutor implements CommandExecutor {
       }
 
       sender.sendMessage(FormatCodes.applyAll(execute(sender, cmd, args)));
+
+      return true;
     }
     catch (CheckException e) {
       String message = R.get("Color.Error") + R.get(e.getMessage());
       sender.sendMessage(FormatCodes.applyAll(message));
-    }
 
-    return true;
+      return false;
+    }
   }
 }
