@@ -33,7 +33,7 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
   }
 
   @Override
-  protected void execute(CommandSender sender, Command cmd, String[] args) {
+  protected String execute(CommandSender sender, Command cmd, String[] args) {
     String message = null;
 
     if (args.length - 2 > 0) {
@@ -61,7 +61,7 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
 
     config.set(String.format("custom.%s.%s", type, player), message);
 
-    sender.sendMessage(R.get("Color.Success")
-        + R.format(message == null ? "Command.PlayerMessageDeleted" : "Command.PlayerMessageSet", player, type));
+    return R.get("Color.Success")
+        + R.format(message == null ? "Command.PlayerMessageDeleted" : "Command.PlayerMessageSet", player, type);
   }
 }

@@ -33,7 +33,7 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
   }
 
   @Override
-  protected void execute(CommandSender sender, Command cmd, String[] args) {
+  protected String execute(CommandSender sender, Command cmd, String[] args) {
     StringBuilder messageBuilder = new StringBuilder();
 
     for (int i = 1; i < args.length; i++) {
@@ -53,6 +53,6 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
     }
 
     config.set(String.format("format.%s", args[0]), message);
-    sender.sendMessage(R.get("Color.Success") + R.format("Command.MessageSet", args[0]));
+    return R.get("Color.Success") + R.format("Command.MessageSet", args[0]);
   }
 }

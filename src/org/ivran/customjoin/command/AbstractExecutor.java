@@ -27,8 +27,9 @@ public abstract class AbstractExecutor implements CommandExecutor {
 
   /**
    * Called after it was ensured that the command can be executed.
+   * @return A status message for the player.
    */
-  protected abstract void execute(CommandSender sender, Command cmd, String[] args);
+  protected abstract String execute(CommandSender sender, Command cmd, String[] args);
 
   @Override
   public final boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -37,7 +38,7 @@ public abstract class AbstractExecutor implements CommandExecutor {
         c.doCheck(sender, cmd, label, args);
       }
 
-      execute(sender, cmd, args);
+      sender.sendMessage(FormatCodes.applyAll(execute(sender, cmd, args)));
     }
     catch (CheckException e) {
       String message = R.get("Color.Error") + R.get(e.getMessage());
