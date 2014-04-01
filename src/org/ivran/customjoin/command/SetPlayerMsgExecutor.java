@@ -13,10 +13,10 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
   private final FileConfiguration config;
 
   public SetPlayerMsgExecutor(CustomJoinPlugin plugin) {
-    super(plugin,
-        new PermissionCheck("customjoin.setplayermessage"),
-        new ArgumentCountCheck(2, -1));
+    super(plugin);
 
+    addCheck(new PermissionCheck("customjoin.setplayermessage"));
+    addCheck(new ArgumentCountCheck(2, -1));
     addCheck(this);
 
     this.config = plugin.getConfig();

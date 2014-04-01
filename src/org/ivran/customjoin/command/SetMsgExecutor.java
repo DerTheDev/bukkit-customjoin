@@ -13,10 +13,10 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
   private final FileConfiguration config;
 
   public SetMsgExecutor(CustomJoinPlugin plugin) {
-    super(plugin,
-        new PermissionCheck("customjoin.set"),
-        new ArgumentCountCheck(1, -1));
+    super(plugin);
 
+    addCheck(new PermissionCheck("customjoin.set"));
+    addCheck(new ArgumentCountCheck(1, -1));
     addCheck(this);
 
     this.config = plugin.getConfig();

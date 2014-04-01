@@ -14,11 +14,8 @@ public abstract class AbstractExecutor implements CommandExecutor {
 
   private List<ICommandCheck> commandChecks;
 
-  public AbstractExecutor(CustomJoinPlugin plugin, ICommandCheck... commandChecks) {
+  public AbstractExecutor(CustomJoinPlugin plugin) {
     this.commandChecks = new ArrayList<ICommandCheck>();
-    for (ICommandCheck c : commandChecks) {
-      this.commandChecks.add(c);
-    }
   }
 
   public void addCheck(ICommandCheck c) {
