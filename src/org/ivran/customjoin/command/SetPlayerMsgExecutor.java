@@ -3,20 +3,19 @@ package org.ivran.customjoin.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.ivran.customjoin.CustomJoinPlugin;
 import org.ivran.customjoin.R;
 
 public class SetPlayerMsgExecutor extends SetMessageBaseExecutor {
 
   private final FileConfiguration config;
 
-  public SetPlayerMsgExecutor(CustomJoinPlugin plugin) {
+  public SetPlayerMsgExecutor(FileConfiguration config) {
     super(1);
+
+    this.config = config;
 
     addCheck(new PermissionCheck("customjoin.setplayermessage"));
     addCheck(new ArgumentCountCheck(2, -1));
-
-    this.config = plugin.getConfig();
   }
 
 

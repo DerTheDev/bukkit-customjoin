@@ -18,8 +18,8 @@ public class CustomJoinPlugin extends JavaPlugin {
     config.options().copyDefaults(true);
     pdf = getDescription();
 
-    getCommand("setmessage").setExecutor(new SetMsgExecutor(this));
-    getCommand("setplayermessage").setExecutor(new SetPlayerMsgExecutor(this));
+    getCommand("setmessage").setExecutor(new SetMsgExecutor(config));
+    getCommand("setplayermessage").setExecutor(new SetPlayerMsgExecutor(config));
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(this));
 
     getServer().getPluginManager().registerEvents(new JoinLeaveListener(config), this);
