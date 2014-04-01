@@ -34,14 +34,16 @@ public abstract class SetMessageBaseExecutor extends AbstractExecutor implements
     String format = createFormat(sender, cmd, args);
     StringBuilder statusBuilder = new StringBuilder();
 
-    if (!sender.hasPermission("customjoin.colors") && FormatCodes.containsColors(format)) {
-      format = FormatCodes.stripColors(format);
-      statusBuilder.append(R.get("Color.Warning")).append(R.get("Command.MessageSet.ColorsRemoved")).append('\n');
-    }
+    if (format != null) {
+      if (!sender.hasPermission("customjoin.colors") && FormatCodes.containsColors(format)) {
+        format = FormatCodes.stripColors(format);
+        statusBuilder.append(R.get("Color.Warning")).append(R.get("Command.MessageSet.ColorsRemoved")).append('\n');
+      }
 
-    if (!sender.hasPermission("customjoin.formats") && FormatCodes.containsFormats(format)) {
-      format = FormatCodes.stripFormats(format);
-      statusBuilder.append(R.get("Color.Warning")).append(R.get("Command.MessageSet.FormatsRemoved")).append('\n');
+      if (!sender.hasPermission("customjoin.formats") && FormatCodes.containsFormats(format)) {
+        format = FormatCodes.stripFormats(format);
+        statusBuilder.append(R.get("Color.Warning")).append(R.get("Command.MessageSet.FormatsRemoved")).append('\n');
+      }
     }
 
     statusBuilder.append(saveFormat(format, args));
