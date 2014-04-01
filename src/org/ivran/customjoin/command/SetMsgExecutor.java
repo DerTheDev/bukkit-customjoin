@@ -11,7 +11,7 @@ public class SetMsgExecutor extends SetMessageBaseExecutor {
   private final FileConfiguration config;
 
   public SetMsgExecutor(CustomJoinPlugin plugin) {
-    super(plugin, 0);
+    super(0);
 
     addCheck(new PermissionCheck("customjoin.set"));
     addCheck(new ArgumentCountCheck(1, -1));

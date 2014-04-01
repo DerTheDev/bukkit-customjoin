@@ -11,7 +11,7 @@ public class SetPlayerMsgExecutor extends SetMessageBaseExecutor {
   private final FileConfiguration config;
 
   public SetPlayerMsgExecutor(CustomJoinPlugin plugin) {
-    super(plugin, 1);
+    super(1);
 
     addCheck(new PermissionCheck("customjoin.setplayermessage"));
     addCheck(new ArgumentCountCheck(2, -1));

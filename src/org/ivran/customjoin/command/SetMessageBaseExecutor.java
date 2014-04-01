@@ -2,7 +2,6 @@ package org.ivran.customjoin.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.ivran.customjoin.CustomJoinPlugin;
 import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.MessageType;
 import org.ivran.customjoin.R;
@@ -11,8 +10,8 @@ public abstract class SetMessageBaseExecutor extends AbstractExecutor implements
 
   private final int typeIndex;
 
-  public SetMessageBaseExecutor(CustomJoinPlugin plugin, int typeIndex) {
-    super(plugin);
+  public SetMessageBaseExecutor(int typeIndex) {
+    super();
 
     addCheck(this);
 
