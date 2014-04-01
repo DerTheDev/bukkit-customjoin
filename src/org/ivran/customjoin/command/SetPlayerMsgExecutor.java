@@ -35,6 +35,7 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
   @Override
   protected String execute(CommandSender sender, Command cmd, String[] args) {
     String message = null;
+    StringBuilder statusBuilder = new StringBuilder();
 
     if (args.length - 2 > 0) {
       StringBuilder messageBuilder = new StringBuilder();
@@ -48,20 +49,31 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
 
     if (!sender.hasPermission("customjoin.colors") && FormatCodes.containsColors(message)) {
       message = FormatCodes.stripColors(message);
-      sender.sendMessage(R.get("Color.Warning") + R.get("Command.MessageSet.ColorsRemoved"));
+
+      statusBuilder
+      .append(R.get("Color.Warning")).append(R.get("Command.MessageSet.ColorsRemoved")).append('\n');
     }
 
     if (!sender.hasPermission("customjoin.formats") && FormatCodes.containsFormats(message)) {
       message = FormatCodes.stripFormats(message);
-      sender.sendMessage(R.get("Color.Warning") + R.get("Command.MessageSet.FormatsRemoved"));
+
+      statusBuilder
+      .append(R.get("Color.Warning")).append(R.get("Command.MessageSet.FormatsRemoved")).append('\n');
     }
 
     String player = args[0];
     String type = args[1];
 
     config.set(String.format("custom.%s.%s", type, player), message);
+    statusBuilder.append(R.get("Color.Success"));
 
-    return R.get("Color.Success")
-        + R.format(message == null ? "Command.PlayerMessageDeleted" : "Command.PlayerMessageSet", player, type);
+    if (message == null) {
+      statusBuilder.append(R.format("Command.PlayerMessageDeleted", player, type));
+    }
+    else {
+      statusBuilder.append(R.format("Command.PlayerMessageSet", player, type));
+    }
+
+    return statusBuilder.toString();
   }
 }

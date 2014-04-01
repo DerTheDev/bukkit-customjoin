@@ -42,17 +42,20 @@ public class SetMsgExecutor extends AbstractExecutor implements ICommandCheck {
 
     String message = messageBuilder.toString().trim();
 
+    StringBuilder statusBuilder = new StringBuilder();
+    statusBuilder.append(R.get("Color.Success")).append(R.format("Command.MessageSet", args[0]));
+
     if (!sender.hasPermission("customjoin.colors") && FormatCodes.containsColors(message)) {
       message = FormatCodes.stripColors(message);
-      sender.sendMessage(R.get("Color.Warning") + R.get("Command.MessageSet.ColorsRemoved"));
+      statusBuilder.insert(0, R.get("Color.Warning") + R.get("Command.MessageSet.ColorsRemoved") + '\n');
     }
 
     if (!sender.hasPermission("customjoin.formats") && FormatCodes.containsFormats(message)) {
       message = FormatCodes.stripFormats(message);
-      sender.sendMessage(R.get("Color.Warning") + R.get("Command.MessageSet.FormatsRemoved"));
+      statusBuilder.insert(0, R.get("Color.Warning") + R.get("Command.MessageSet.FormatsRemoved") + '\n');
     }
 
     config.set(String.format("format.%s", args[0]), message);
-    return R.get("Color.Success") + R.format("Command.MessageSet", args[0]);
+    return statusBuilder.toString();
   }
 }
