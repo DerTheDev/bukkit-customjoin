@@ -9,27 +9,35 @@ commands:
     description: Set a default event message
     usage: /<command> <join|quit|kick> <message>
     aliases: [setmsg]
-  
+
   setplayermessage:
     description: Set a player-specific event message
     usage: /<command> <player> <join|quit|kick> [message]
     aliases: [setplayermsg, setcustom]
-    
+
   customjoin:
     description: Reloads the configuration
     usage: /<command>
-  
+
 permissions:
   customjoin.*:
     description: Gives access to all CustomJoin commands
     children:
       customjoin.set: true
       customjoin.reset: true
-      
+
   customjoin.set:
     description: Gives access to all set commands
     default: op
-    
+
   customjoin.reset:
     description: Gives access to all reset commands
+    default: op
+
+  customjoin.colors:
+    description: Allows use of color codes in messages
+    default: op
+
+  customjoin.formats:
+    description: Allows use of format codes in messages
     default: op
