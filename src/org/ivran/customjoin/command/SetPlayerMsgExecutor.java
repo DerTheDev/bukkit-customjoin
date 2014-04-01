@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.CustomJoinPlugin;
+import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.MessageType;
 import org.ivran.customjoin.R;
 
@@ -44,6 +45,16 @@ public class SetPlayerMsgExecutor extends AbstractExecutor implements ICommandCh
       }
 
       message = messageBuilder.toString().trim();
+    }
+
+    if (!sender.hasPermission("customjoin.colors") && FormatCodes.containsColors(message)) {
+      message = FormatCodes.stripColors(message);
+      sender.sendMessage(R.get("Color.Warning") + R.get("Command.MessageSet.ColorsRemoved"));
+    }
+
+    if (!sender.hasPermission("customjoin.formats") && FormatCodes.containsFormats(message)) {
+      message = FormatCodes.stripFormats(message);
+      sender.sendMessage(R.get("Color.Warning") + R.get("Command.MessageSet.FormatsRemoved"));
     }
 
     String player = args[0];
