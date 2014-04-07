@@ -5,6 +5,7 @@ import static org.ivran.customjoin.ResourceHelper.formatString;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.ivran.customjoin.command.SetMessageExecutor;
 
 public class CustomJoinPlugin extends JavaPlugin {
 
@@ -16,6 +17,10 @@ public class CustomJoinPlugin extends JavaPlugin {
     config = getConfig();
     config.options().copyDefaults(true);
     pdf = getDescription();
+
+    getCommand("setjoin").setExecutor(new SetMessageExecutor(config, "format.join", "Join"));
+    getCommand("setquit").setExecutor(new SetMessageExecutor(config, "format.quit", "Quit"));
+    getCommand("setkick").setExecutor(new SetMessageExecutor(config, "format.kick", "Kick"));
 
     getServer().getPluginManager().registerEvents(new JoinLeaveListener(config), this);
     getLogger().info(formatString("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
