@@ -70,7 +70,7 @@ public class SetMyMessageExecutorTest {
 
   @Test
   public void testSet() {
-    when(sender.hasPermission("customjoin.set.own")).thenReturn(true);
+    when(sender.hasPermission(anyString())).thenReturn(true);
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
@@ -80,7 +80,7 @@ public class SetMyMessageExecutorTest {
 
   @Test
   public void testReset() {
-    when(sender.hasPermission("customjoin.set.own")).thenReturn(true);
+    when(sender.hasPermission(anyString())).thenReturn(true);
 
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
 
