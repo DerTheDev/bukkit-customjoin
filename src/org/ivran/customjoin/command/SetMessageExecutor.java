@@ -2,11 +2,10 @@ package org.ivran.customjoin.command;
 
 import static org.ivran.customjoin.ResourceHelper.formatString;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class SetMessageExecutor extends AbstractExecutor {
+public class SetMessageExecutor extends SetMessageBase {
 
   private final FileConfiguration config;
   private final String configNode;
@@ -22,20 +21,13 @@ public class SetMessageExecutor extends AbstractExecutor {
   }
 
   @Override
-  protected String execute(CommandSender sender, Command cmd, String[] args) {
-    if (args.length == 0) {
+  protected String saveFormat(CommandSender sender, String format, String[] args) {
+    if (format == null) {
       config.set(configNode, null);
       return formatString("Command.MessageReset", eventName);
     }
     else {
-      StringBuilder formatBuilder = new StringBuilder();
-
-      for (String s : args) {
-        formatBuilder.append(s).append(' ');
-      }
-
-      config.set(configNode, formatBuilder.toString().trim());
-
+      config.set(configNode, format);
       return formatString("Command.MessageSet", eventName);
     }
   }

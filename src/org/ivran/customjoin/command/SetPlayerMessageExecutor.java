@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class SetPlayerMessageExecutor extends AbstractExecutor {
+public class SetPlayerMessageExecutor extends SetMessageBase {
 
   private final FileConfiguration config;
   private final String eventName;
@@ -21,13 +21,9 @@ public class SetPlayerMessageExecutor extends AbstractExecutor {
   }
 
   @Override
-  protected String execute(CommandSender sender, Command cmd, String[] args) {
-    String playerName = args[0];
-    String customFormatPath = String.format("custom.%s.%s", eventName.toLowerCase(), playerName);
-
+  protected String createFormat(CommandSender sender, Command cmd, String[] args) {
     if (args.length == 1) {
-      config.set(customFormatPath, null);
-      return formatString("Command.PlayerMessageReset", playerName, eventName);
+      return null;
     }
     else {
       StringBuilder formatBuilder = new StringBuilder();
@@ -36,8 +32,21 @@ public class SetPlayerMessageExecutor extends AbstractExecutor {
         formatBuilder.append(args[i]).append(' ');
       }
 
-      config.set(customFormatPath, formatBuilder.toString().trim());
+      return formatBuilder.toString().trim();
+    }
+  }
 
+  @Override
+  protected String saveFormat(CommandSender sender, String format, String[] args) {
+    String playerName = args[0];
+    String customFormatPath = String.format("custom.%s.%s", eventName.toLowerCase(), playerName);
+
+    if (format == null) {
+      config.set(customFormatPath, null);
+      return formatString("Command.PlayerMessageReset", playerName, eventName);
+    }
+    else {
+      config.set(customFormatPath, format);
       return formatString("Command.PlayerMessageSet", playerName, eventName);
     }
   }
