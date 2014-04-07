@@ -1,9 +1,11 @@
 package org.ivran.customjoin.command;
 
+import static org.ivran.customjoin.ResourceHelper.formatString;
+import static org.ivran.customjoin.ResourceHelper.getString;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.ivran.customjoin.ResourceHelper;
 
 public class SetMsgExecutor extends SetMessageBaseExecutor {
 
@@ -32,6 +34,6 @@ public class SetMsgExecutor extends SetMessageBaseExecutor {
   @Override
   protected String saveFormat(String format, String[] args) {
     config.set(String.format("format.%s", args[0]), format);
-    return ResourceHelper.getString("Color.Success") + ResourceHelper.formatString("Command.MessageSet", args[0]);
+    return getString("Color.Success") + formatString("Command.MessageSet", args[0]);
   }
 }

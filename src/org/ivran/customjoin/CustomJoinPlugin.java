@@ -1,5 +1,7 @@
 package org.ivran.customjoin;
 
+import static org.ivran.customjoin.ResourceHelper.formatString;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,12 +25,12 @@ public class CustomJoinPlugin extends JavaPlugin {
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(pdf));
 
     getServer().getPluginManager().registerEvents(new JoinLeaveListener(config), this);
-    getLogger().info(ResourceHelper.formatString("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
+    getLogger().info(formatString("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
   }
 
   @Override
   public void onDisable() {
     saveConfig();
-    getLogger().info(ResourceHelper.formatString("Plugin.Disabled", pdf.getName()));
+    getLogger().info(formatString("Plugin.Disabled", pdf.getName()));
   }
 }
