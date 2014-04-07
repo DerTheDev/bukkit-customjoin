@@ -3,7 +3,7 @@ package org.ivran.customjoin.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.ivran.customjoin.R;
+import org.ivran.customjoin.ResourceHelper;
 
 public class SetMsgExecutor extends SetMessageBaseExecutor {
 
@@ -32,6 +32,6 @@ public class SetMsgExecutor extends SetMessageBaseExecutor {
   @Override
   protected String saveFormat(String format, String[] args) {
     config.set(String.format("format.%s", args[0]), format);
-    return R.get("Color.Success") + R.format("Command.MessageSet", args[0]);
+    return ResourceHelper.getString("Color.Success") + ResourceHelper.formatString("Command.MessageSet", args[0]);
   }
 }

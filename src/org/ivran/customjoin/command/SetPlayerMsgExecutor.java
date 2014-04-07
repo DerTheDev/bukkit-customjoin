@@ -3,7 +3,7 @@ package org.ivran.customjoin.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.ivran.customjoin.R;
+import org.ivran.customjoin.ResourceHelper;
 
 public class SetPlayerMsgExecutor extends SetMessageBaseExecutor {
 
@@ -43,10 +43,10 @@ public class SetPlayerMsgExecutor extends SetMessageBaseExecutor {
     config.set(String.format("custom.%s.%s", type, player), format);
 
     if (format == null) {
-      return R.get("Color.Success") + R.format("Command.PlayerMessageDeleted", player, type);
+      return ResourceHelper.getString("Color.Success") + ResourceHelper.formatString("Command.PlayerMessageDeleted", player, type);
     }
     else {
-      return R.get("Color.Success") + R.format("Command.PlayerMessageSet", player, type);
+      return ResourceHelper.getString("Color.Success") + ResourceHelper.formatString("Command.PlayerMessageSet", player, type);
     }
   }
 }

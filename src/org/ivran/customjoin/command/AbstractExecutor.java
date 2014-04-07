@@ -7,7 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.ivran.customjoin.FormatCodes;
-import org.ivran.customjoin.R;
+import org.ivran.customjoin.ResourceHelper;
 
 public abstract class AbstractExecutor implements CommandExecutor {
 
@@ -39,7 +39,7 @@ public abstract class AbstractExecutor implements CommandExecutor {
       return true;
     }
     catch (CheckException e) {
-      String message = R.get("Color.Error") + R.get(e.getMessage());
+      String message = ResourceHelper.getString("Color.Error") + ResourceHelper.getString(e.getMessage());
       sender.sendMessage(FormatCodes.applyAll(message));
 
       return false;

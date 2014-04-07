@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.MessageType;
-import org.ivran.customjoin.R;
+import org.ivran.customjoin.ResourceHelper;
 
 public abstract class SetMessageBaseExecutor extends AbstractExecutor implements ICommandCheck {
 
@@ -28,7 +28,7 @@ public abstract class SetMessageBaseExecutor extends AbstractExecutor implements
       MessageType.valueOf(args[typeIndex].toUpperCase());
     }
     catch (IllegalArgumentException e) {
-      throw new CheckException(R.format("Command.UnknownMessageType", args[typeIndex]));
+      throw new CheckException(ResourceHelper.formatString("Command.UnknownMessageType", args[typeIndex]));
     }
   }
 
@@ -40,12 +40,12 @@ public abstract class SetMessageBaseExecutor extends AbstractExecutor implements
     if (format != null) {
       if (!sender.hasPermission("customjoin.colors") && FormatCodes.containsColors(format)) {
         format = FormatCodes.stripColors(format);
-        statusBuilder.append(R.get("Color.Warning")).append(R.get("Command.MessageSet.ColorsRemoved")).append('\n');
+        statusBuilder.append(ResourceHelper.getString("Color.Warning")).append(ResourceHelper.getString("Command.MessageSet.ColorsRemoved")).append('\n');
       }
 
       if (!sender.hasPermission("customjoin.formats") && FormatCodes.containsFormats(format)) {
         format = FormatCodes.stripFormats(format);
-        statusBuilder.append(R.get("Color.Warning")).append(R.get("Command.MessageSet.FormatsRemoved")).append('\n');
+        statusBuilder.append(ResourceHelper.getString("Color.Warning")).append(ResourceHelper.getString("Command.MessageSet.FormatsRemoved")).append('\n');
       }
     }
 

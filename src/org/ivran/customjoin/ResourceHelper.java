@@ -2,15 +2,15 @@ package org.ivran.customjoin;
 
 import java.util.ResourceBundle;
 
-public class R {
+public class ResourceHelper {
 
   private static final ResourceBundle bundle = ResourceBundle.getBundle("MessagesBundle");
 
-  public static String format(String key, Object... args) {
-    return String.format(get(key), args);
+  public static String formatString(String key, Object... args) {
+    return String.format(getString(key), args);
   }
 
-  public static String get(String key) {
+  public static String getString(String key) {
     if (bundle.containsKey(key)) {
       return bundle.getString(key);
     }

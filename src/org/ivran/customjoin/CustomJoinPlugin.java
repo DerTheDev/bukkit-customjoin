@@ -23,12 +23,12 @@ public class CustomJoinPlugin extends JavaPlugin {
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(pdf));
 
     getServer().getPluginManager().registerEvents(new JoinLeaveListener(config), this);
-    getLogger().info(R.format("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
+    getLogger().info(ResourceHelper.formatString("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
   }
 
   @Override
   public void onDisable() {
     saveConfig();
-    getLogger().info(R.format("Plugin.Disabled", pdf.getName()));
+    getLogger().info(ResourceHelper.formatString("Plugin.Disabled", pdf.getName()));
   }
 }
