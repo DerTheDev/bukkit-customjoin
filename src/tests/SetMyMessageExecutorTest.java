@@ -88,7 +88,7 @@ public class SetMyMessageExecutorTest {
 
     verify(config).set(configNode, FormatCodes.stripColors(newFormat));
 
-    String expectedMessage = "§e" + getString("Command.MessageSet.ColorsRemoved") + '\n'
+    String expectedMessage = "§e" + getString("Command.ColorsRemoved") + '\n'
         + formatString("Command.OwnMessageSet", eventName);
 
     verify(sender).sendMessage(expectedMessage);
@@ -103,7 +103,7 @@ public class SetMyMessageExecutorTest {
 
     verify(config).set(configNode, FormatCodes.stripFormats(newFormat));
 
-    String expectedMessage = "§e" + getString("Command.MessageSet.FormatsRemoved") + '\n'
+    String expectedMessage = "§e" + getString("Command.FormatsRemoved") + '\n'
         + formatString("Command.OwnMessageSet", eventName);
 
     verify(sender).sendMessage(expectedMessage);
