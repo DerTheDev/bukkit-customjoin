@@ -16,12 +16,18 @@ public abstract class SetMessageBase extends AbstractExecutor {
     if (format != null) {
       if (!sender.hasPermission("customjoin.colors") && FormatCodes.containsColors(format)) {
         format = FormatCodes.stripColors(format);
-        statusBuilder.append(getString("Color.Warning")).append(getString("Command.ColorsRemoved")).append('\n');
+        statusBuilder
+        .append(getString("Color.Warning"))
+        .append(getString("Command.ColorsRemoved"))
+        .append('\n');
       }
 
       if (!sender.hasPermission("customjoin.formats") && FormatCodes.containsFormats(format)) {
         format = FormatCodes.stripFormats(format);
-        statusBuilder.append(getString("Color.Warning")).append(getString("Command.FormatsRemoved")).append('\n');
+        statusBuilder
+        .append(getString("Color.Warning"))
+        .append(getString("Command.FormatsRemoved"))
+        .append('\n');
       }
     }
 
