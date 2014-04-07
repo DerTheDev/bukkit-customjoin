@@ -12,7 +12,7 @@ import org.ivran.customjoin.FormatCodes;
 
 public abstract class AbstractExecutor implements CommandExecutor {
 
-  private List<ICommandCheck> commandChecks;
+  private final List<ICommandCheck> commandChecks;
 
   public AbstractExecutor() {
     this.commandChecks = new ArrayList<ICommandCheck>();

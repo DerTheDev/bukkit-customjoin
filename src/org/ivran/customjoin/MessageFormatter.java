@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 public class MessageFormatter {
 
-  private FileConfiguration config;
+  private final FileConfiguration config;
 
   public MessageFormatter(FileConfiguration config) {
     this.config = config;

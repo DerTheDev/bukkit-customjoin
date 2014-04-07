@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 public class FormatProvider {
 
-  private FileConfiguration config;
+  private final FileConfiguration config;
 
   public FormatProvider(FileConfiguration config) {
     this.config = config;
