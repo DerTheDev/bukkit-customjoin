@@ -1,6 +1,6 @@
 package org.ivran.customjoin.command;
 
-import static org.ivran.customjoin.ResourceHelper.formatString;
+import static org.ivran.customjoin.ResourceHelper.formatMessage;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -43,11 +43,11 @@ public class SetPlayerMessageExecutor extends SetMessageBase {
 
     if (format == null) {
       config.set(customFormatPath, null);
-      return formatString("Command.PlayerMessageReset", playerName, eventName);
+      return formatMessage("Command.PlayerMessageReset", playerName, eventName);
     }
     else {
       config.set(customFormatPath, format);
-      return formatString("Command.PlayerMessageSet", playerName, eventName);
+      return formatMessage("Command.PlayerMessageSet", playerName, eventName);
     }
   }
 

@@ -1,6 +1,6 @@
 package org.ivran.customjoin.command;
 
-import static org.ivran.customjoin.ResourceHelper.getString;
+import static org.ivran.customjoin.ResourceHelper.getMessage;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,16 +17,16 @@ public abstract class SetMessageBase extends AbstractExecutor {
       if (!sender.hasPermission("customjoin.colors") && FormatCodes.containsColors(format)) {
         format = FormatCodes.stripColors(format);
         statusBuilder
-        .append(getString("Color.Warning"))
-        .append(getString("Command.ColorsRemoved"))
+        .append(getMessage("Color.Warning"))
+        .append(getMessage("Command.ColorsRemoved"))
         .append('\n');
       }
 
       if (!sender.hasPermission("customjoin.formats") && FormatCodes.containsFormats(format)) {
         format = FormatCodes.stripFormats(format);
         statusBuilder
-        .append(getString("Color.Warning"))
-        .append(getString("Command.FormatsRemoved"))
+        .append(getMessage("Color.Warning"))
+        .append(getMessage("Command.FormatsRemoved"))
         .append('\n');
       }
     }

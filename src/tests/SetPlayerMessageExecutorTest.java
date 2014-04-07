@@ -1,7 +1,7 @@
 package tests;
 
-import static org.ivran.customjoin.ResourceHelper.formatString;
-import static org.ivran.customjoin.ResourceHelper.getString;
+import static org.ivran.customjoin.ResourceHelper.formatMessage;
+import static org.ivran.customjoin.ResourceHelper.getMessage;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
@@ -66,7 +66,7 @@ public class SetPlayerMessageExecutorTest {
 
     assertFalse(executor.onCommand(sender, command, "", new String[] {}));
 
-    verify(sender).sendMessage("§c" + getString("Command.NoPermission"));
+    verify(sender).sendMessage("§c" + getMessage("Command.NoPermission"));
   }
 
   @Test
@@ -76,7 +76,7 @@ public class SetPlayerMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", ("John " + newFormat).split(" ")));
 
     verify(config).set(configNode, newFormat);
-    verify(sender).sendMessage(formatString("Command.PlayerMessageSet", "John", eventName));
+    verify(sender).sendMessage(formatMessage("Command.PlayerMessageSet", "John", eventName));
   }
 
   @Test
@@ -88,8 +88,8 @@ public class SetPlayerMessageExecutorTest {
 
     verify(config).set(configNode, FormatCodes.stripColors(newFormat));
 
-    String expectedMessage = "§e" + getString("Command.ColorsRemoved") + '\n'
-        + formatString("Command.PlayerMessageSet", "John", eventName);
+    String expectedMessage = "§e" + getMessage("Command.ColorsRemoved") + '\n'
+        + formatMessage("Command.PlayerMessageSet", "John", eventName);
 
     verify(sender).sendMessage(expectedMessage);
   }
@@ -103,8 +103,8 @@ public class SetPlayerMessageExecutorTest {
 
     verify(config).set(configNode, FormatCodes.stripFormats(newFormat));
 
-    String expectedMessage = "§e" + getString("Command.FormatsRemoved") + '\n'
-        + formatString("Command.PlayerMessageSet", "John", eventName);
+    String expectedMessage = "§e" + getMessage("Command.FormatsRemoved") + '\n'
+        + formatMessage("Command.PlayerMessageSet", "John", eventName);
 
     verify(sender).sendMessage(expectedMessage);
   }
@@ -116,7 +116,7 @@ public class SetPlayerMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", new String[] {"John"}));
 
     verify(config).set(configNode, null);
-    verify(sender).sendMessage(formatString("Command.PlayerMessageReset", "John", eventName));
+    verify(sender).sendMessage(formatMessage("Command.PlayerMessageReset", "John", eventName));
   }
 
 }

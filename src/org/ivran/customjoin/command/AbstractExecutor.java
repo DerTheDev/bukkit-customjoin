@@ -1,6 +1,6 @@
 package org.ivran.customjoin.command;
 
-import static org.ivran.customjoin.ResourceHelper.getString;
+import static org.ivran.customjoin.ResourceHelper.getMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public abstract class AbstractExecutor implements CommandExecutor {
       return true;
     }
     catch (CheckException e) {
-      String message = getString("Color.Error") + getString(e.getMessage());
+      String message = getMessage("Color.Error") + getMessage(e.getMessage());
       sender.sendMessage(FormatCodes.applyAll(message));
 
       return false;
