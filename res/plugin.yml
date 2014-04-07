@@ -42,14 +42,17 @@ permissions:
     description: Gives access to all CustomJoin commands
     children:
       customjoin.set: true
-      customjoin.reset: true
+      customjoin.colors: true
+      customjoin.formats: true
 
   customjoin.set:
     description: Gives access to all set commands
     default: op
+    children:
+      customjoin.set.own: true
 
-  customjoin.reset:
-    description: Gives access to all reset commands
+  customjoin.set.own:
+    description: Allows players to set their own messages
     default: op
 
   customjoin.colors:
