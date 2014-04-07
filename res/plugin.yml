@@ -25,6 +25,14 @@ commands:
     description: Set your own quit message (leave message empty to reset)
     usage: /setmyquit [message]
 
+  setplayerjoin:
+    description: Set another player's join message (leave message empty to reset)
+    usage: /setplayerjoin <player> [message]
+
+  setplayerquit:
+    description: Set another player's quit message (leave message empty to reset)
+    usage: /setplayerquit <player> [message]
+
   customjoin:
     description: Shows the plugin version
     usage: /customjoin
