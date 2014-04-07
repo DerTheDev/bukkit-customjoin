@@ -16,6 +16,7 @@ import java.util.Collection;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.command.SetMessageExecutor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +52,7 @@ public class SetMessageExecutorTest {
     executor = new SetMessageExecutor(config, configNode, eventName);
     this.configNode = configNode;
     this.eventName = eventName;
-    newFormat = "&a%player has entered the server";
+    newFormat = "&k&a%player has entered the server";
   }
 
   @Test
@@ -72,6 +73,36 @@ public class SetMessageExecutorTest {
 
     verify(config).set(configNode, newFormat);
     verify(sender).sendMessage(formatString("Command.MessageSet", eventName));
+  }
+
+  @Test
+  public void testColorPermissions() {
+    when(sender.hasPermission(anyString())).thenReturn(true);
+    when(sender.hasPermission("customjoin.colors")).thenReturn(false);
+
+    assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
+
+    verify(config).set(configNode, FormatCodes.stripColors(newFormat));
+
+    String expectedMessage = "§e" + getString("Command.MessageSet.ColorsRemoved") + '\n'
+        + formatString("Command.MessageSet", eventName);
+
+    verify(sender).sendMessage(expectedMessage);
+  }
+
+  @Test
+  public void testFormatPermissions() {
+    when(sender.hasPermission(anyString())).thenReturn(true);
+    when(sender.hasPermission("customjoin.formats")).thenReturn(false);
+
+    assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
+
+    verify(config).set(configNode, FormatCodes.stripFormats(newFormat));
+
+    String expectedMessage = "§e" + getString("Command.MessageSet.FormatsRemoved") + '\n'
+        + formatString("Command.MessageSet", eventName);
+
+    verify(sender).sendMessage(expectedMessage);
   }
 
   @Test
