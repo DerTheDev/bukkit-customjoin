@@ -16,7 +16,7 @@
   </target>
 
   <target name="compile" depends="init">
-    <javac srcdir="${dir.src}" destdir="${dir.build}" includeantruntime="true">
+    <javac srcdir="${dir.src}" destdir="${dir.build}" excludes="**/*Test.java" includeantruntime="true">
       <classpath location="${lib.bukkit}" />
     </javac>
   </target>
