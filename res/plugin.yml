@@ -5,19 +5,29 @@ main: 'org.ivran.customjoin.CustomJoinPlugin'
 description: 'Customize the join/leave/kick-messages of your server'
 
 commands:
-  setmessage:
-    description: Set a default event message
-    usage: /<command> <join|quit|kick> <message>
-    aliases: [setmsg]
+  setjoin:
+    description: Set the default join message
+    usage: /setjoin [message]
 
-  setplayermessage:
-    description: Set a player-specific event message
-    usage: /<command> <player> <join|quit|kick> [message]
-    aliases: [setplayermsg, setcustom]
+  setquit:
+    description: Set the default quit message
+    usage: /setquit [message]
+
+  setkick:
+    description: Set the default kick message
+    usage: /setkick [message]
+
+  setmyjoin:
+    description: Set your own join message (leave message empty to reset)
+    usage: /setmyjoin [message]
+
+  setmyquit:
+    description: Set your own quit message (leave message empty to reset)
+    usage: /setmyquit [message]
 
   customjoin:
-    description: Reloads the configuration
-    usage: /<command>
+    description: Shows the plugin version
+    usage: /customjoin
 
 permissions:
   customjoin.*:
