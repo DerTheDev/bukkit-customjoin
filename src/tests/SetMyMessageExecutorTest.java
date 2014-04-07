@@ -33,8 +33,7 @@ public class SetMyMessageExecutorTest {
   public static Collection<Object[]> params() {
     return Arrays.asList(new Object[][] {
         {"Join"},
-        {"Quit"},
-        {"Kick"}
+        {"Quit"}
     });
   }
 
