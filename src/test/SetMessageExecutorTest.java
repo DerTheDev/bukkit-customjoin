@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
 import static org.ivran.customjoin.ResourceHelper.getMessage;
