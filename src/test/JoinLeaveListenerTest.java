@@ -8,7 +8,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.ivran.customjoin.FormatManager;
 import org.ivran.customjoin.JoinLeaveListener;
+import org.ivran.customjoin.MessageFormatter;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -17,6 +19,7 @@ public class JoinLeaveListenerTest {
 
   @Mock private FileConfiguration config;
   @Mock private Player player;
+  private final FormatManager manager;
   private final JoinLeaveListener listener;
   private final String playerName;
   private final String displayName;
@@ -27,7 +30,9 @@ public class JoinLeaveListenerTest {
     when(config.getString("format.join")).thenReturn("%player has joined the game");
     when(config.getString("format.quit")).thenReturn("%player has left the game");
     when(config.getString("format.kick")).thenReturn("%player was kicked: %reason");
-    listener = new JoinLeaveListener(config);
+
+    manager = new FormatManager(config);
+    listener = new JoinLeaveListener(new MessageFormatter(config), manager);
 
     playerName = "Steve";
     displayName = "Stevenson";

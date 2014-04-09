@@ -1,6 +1,5 @@
 package org.ivran.customjoin;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,9 +12,9 @@ public class JoinLeaveListener implements Listener {
   private final FormatManager manager;
   private final MessageFormatter formatter;
 
-  public JoinLeaveListener(FileConfiguration config) {
-    this.manager = new FormatManager(config);
-    this.formatter = new MessageFormatter(config);
+  public JoinLeaveListener(MessageFormatter formatter, FormatManager manager) {
+    this.manager = manager;
+    this.formatter = formatter;
   }
 
   private String fetchMessage(String eventType, Player player, String reason) {
