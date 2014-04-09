@@ -10,6 +10,14 @@ public class FormatManager {
     this.config = config;
   }
 
+  public void setFormat(String type, String format) {
+    config.set(("format." + type), format);
+  }
+
+  public void setFormat(String type, String playerName, String format) {
+    config.set(("custom." + type + "." + playerName), format);
+  }
+
   /**
    * Retrieves the appropriate message format for the given event parameters.
    * 
