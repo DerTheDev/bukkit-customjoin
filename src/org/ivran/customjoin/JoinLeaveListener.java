@@ -10,16 +10,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class JoinLeaveListener implements Listener {
 
-  private final FormatManager provider;
+  private final FormatManager manager;
   private final MessageFormatter formatter;
 
   public JoinLeaveListener(FileConfiguration config) {
-    this.provider = new FormatManager(config);
+    this.manager = new FormatManager(config);
     this.formatter = new MessageFormatter(config);
   }
 
   private String fetchMessage(String eventType, Player player, String reason) {
-    return formatter.format(provider.getFormat(eventType, player.getName()), player, reason);
+    return formatter.format(manager.getFormat(eventType, player.getName()), player, reason);
   }
 
   @EventHandler
