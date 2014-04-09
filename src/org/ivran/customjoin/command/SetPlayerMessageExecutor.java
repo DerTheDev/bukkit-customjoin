@@ -4,14 +4,14 @@ import static org.ivran.customjoin.ResourceHelper.formatMessage;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.ivran.customjoin.FormatManager;
 
 public class SetPlayerMessageExecutor extends SetMessageBase {
 
-  private final FileConfiguration config;
+  private final FormatManager config;
   private final String eventName;
 
-  public SetPlayerMessageExecutor(FileConfiguration config, String eventName) {
+  public SetPlayerMessageExecutor(FormatManager config, String eventName) {
     super();
     addCheck(new PermissionCheck("customjoin.set"));
     addCheck(new ArgumentCountCheck(1, -1));
@@ -39,14 +39,12 @@ public class SetPlayerMessageExecutor extends SetMessageBase {
   @Override
   protected String saveFormat(CommandSender sender, String format, String[] args) {
     String playerName = args[0];
-    String customFormatPath = String.format("custom.%s.%s", eventName.toLowerCase(), playerName);
+    config.setFormat(eventName, args[0], format);
 
     if (format == null) {
-      config.set(customFormatPath, null);
       return formatMessage("Command.PlayerMessageReset", playerName, eventName);
     }
     else {
-      config.set(customFormatPath, format);
       return formatMessage("Command.PlayerMessageSet", playerName, eventName);
     }
   }
