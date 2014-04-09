@@ -23,13 +23,13 @@ public class CustomJoinPlugin extends JavaPlugin {
     pdf = getDescription();
     manager = new FormatManager(config);
 
-    getCommand("setjoin").setExecutor(new SetMessageExecutor(manager, "Join"));
-    getCommand("setquit").setExecutor(new SetMessageExecutor(manager, "Quit"));
-    getCommand("setkick").setExecutor(new SetMessageExecutor(manager, "Kick"));
-    getCommand("setmyjoin").setExecutor(new SetMyMessageExecutor(manager, "Join"));
-    getCommand("setmyquit").setExecutor(new SetMyMessageExecutor(manager, "Quit"));
-    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "Join"));
-    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "Quit"));
+    getCommand("setjoin").setExecutor(new SetMessageExecutor(manager, "join"));
+    getCommand("setquit").setExecutor(new SetMessageExecutor(manager, "quit"));
+    getCommand("setkick").setExecutor(new SetMessageExecutor(manager, "kick"));
+    getCommand("setmyjoin").setExecutor(new SetMyMessageExecutor(manager, "join"));
+    getCommand("setmyquit").setExecutor(new SetMyMessageExecutor(manager, "quit"));
+    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "join"));
+    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "quit"));
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(pdf));
 
     getServer().getPluginManager().registerEvents(new JoinLeaveListener(config), this);
