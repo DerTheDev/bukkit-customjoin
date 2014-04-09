@@ -3,7 +3,6 @@ package test;
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
 import static org.ivran.customjoin.ResourceHelper.getColor;
 import static org.ivran.customjoin.ResourceHelper.getMessage;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -62,7 +61,7 @@ public class SetPlayerMessageExecutorTest {
     doThrow(new RuntimeException("Player did something without permission"))
     .when(manager).setFormat(anyString(), anyString(), anyString());
 
-    assertFalse(executor.onCommand(sender, command, "", new String[] {}));
+    assertTrue(executor.onCommand(sender, command, "", new String[] {}));
 
     verify(sender).sendMessage(getColor("Error") + getMessage("Command.NoPermission"));
   }
