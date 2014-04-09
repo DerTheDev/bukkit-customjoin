@@ -10,12 +10,12 @@ public class SetMyMessageExecutor extends SetMessageBase {
   private final FormatManager manager;
   private final String eventName;
 
-  public SetMyMessageExecutor(FormatManager config, String eventName) {
+  public SetMyMessageExecutor(FormatManager manager, String eventName) {
     super();
     addCheck(new PlayerCheck());
     addCheck(new PermissionCheck("customjoin.set.own"));
 
-    this.manager = config;
+    this.manager = manager;
     this.eventName = eventName;
   }
 

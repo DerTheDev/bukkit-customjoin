@@ -8,15 +8,15 @@ import org.ivran.customjoin.FormatManager;
 
 public class SetPlayerMessageExecutor extends SetMessageBase {
 
-  private final FormatManager config;
+  private final FormatManager manager;
   private final String eventName;
 
-  public SetPlayerMessageExecutor(FormatManager config, String eventName) {
+  public SetPlayerMessageExecutor(FormatManager manager, String eventName) {
     super();
     addCheck(new PermissionCheck("customjoin.set"));
     addCheck(new ArgumentCountCheck(1, -1));
 
-    this.config = config;
+    this.manager = manager;
     this.eventName = eventName;
   }
 
@@ -39,7 +39,7 @@ public class SetPlayerMessageExecutor extends SetMessageBase {
   @Override
   protected String saveFormat(CommandSender sender, String format, String[] args) {
     String playerName = args[0];
-    config.setFormat(eventName, args[0], format);
+    manager.setFormat(eventName, args[0], format);
 
     if (format == null) {
       return formatMessage("Command.PlayerMessageReset", playerName, eventName);

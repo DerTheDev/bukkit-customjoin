@@ -15,7 +15,6 @@ import java.util.Collection;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.FormatManager;
 import org.ivran.customjoin.command.SetMessageExecutor;
@@ -38,11 +37,10 @@ public class SetMessageExecutorTest {
     });
   }
 
-  @Mock private FileConfiguration config;
+  @Mock private FormatManager manager;
   @Mock private CommandSender sender;
   @Mock private Command command;
 
-  private final FormatManager manager;
   private final SetMessageExecutor executor;
   private final String eventName;
   private final String newFormat;
@@ -50,7 +48,6 @@ public class SetMessageExecutorTest {
   public SetMessageExecutorTest(String eventName) {
     MockitoAnnotations.initMocks(this);
 
-    manager = new FormatManager(config);
     executor = new SetMessageExecutor(manager, eventName);
     this.eventName = eventName;
     newFormat = "&k&a%player has entered the server";
@@ -59,7 +56,7 @@ public class SetMessageExecutorTest {
   @Test
   public void testWithoutPermission() {
     doThrow(new RuntimeException("Player did something without permission"))
-    .when(config).set(anyString(), anyString());
+    .when(manager).setFormat(anyString(), anyString());
 
     assertFalse(executor.onCommand(sender, command, "", new String[] {}));
 
@@ -72,7 +69,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(config).set("format." + eventName, newFormat);
+    verify(manager).setFormat(eventName, newFormat);
     verify(sender).sendMessage(formatMessage("Command.MessageSet", eventName));
   }
 
@@ -83,7 +80,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(config).set("format." + eventName, FormatCodes.stripColors(newFormat));
+    verify(manager).setFormat(eventName, FormatCodes.stripColors(newFormat));
 
     String expectedMessage = ChatColor.YELLOW + getMessage("Command.ColorsRemoved") + '\n'
         + formatMessage("Command.MessageSet", eventName);
@@ -98,7 +95,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(config).set("format." + eventName, FormatCodes.stripFormats(newFormat));
+    verify(manager).setFormat(eventName, FormatCodes.stripFormats(newFormat));
 
     String expectedMessage = ChatColor.YELLOW + getMessage("Command.FormatsRemoved") + '\n'
         + formatMessage("Command.MessageSet", eventName);
@@ -112,7 +109,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
 
-    verify(config).set("format." + eventName, null);
+    verify(manager).setFormat(eventName, null);
     verify(sender).sendMessage(formatMessage("Command.MessageReset", eventName));
   }
 
