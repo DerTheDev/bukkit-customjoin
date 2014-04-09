@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -62,7 +63,7 @@ public class SetMessageExecutorTest {
 
     assertFalse(executor.onCommand(sender, command, "", new String[] {}));
 
-    verify(sender).sendMessage("�c" + getMessage("Command.NoPermission"));
+    verify(sender).sendMessage(ChatColor.RED + getMessage("Command.NoPermission"));
   }
 
   @Test
@@ -84,7 +85,7 @@ public class SetMessageExecutorTest {
 
     verify(config).set("format." + eventName, FormatCodes.stripColors(newFormat));
 
-    String expectedMessage = "�e" + getMessage("Command.ColorsRemoved") + '\n'
+    String expectedMessage = ChatColor.YELLOW + getMessage("Command.ColorsRemoved") + '\n'
         + formatMessage("Command.MessageSet", eventName);
 
     verify(sender).sendMessage(expectedMessage);
@@ -99,7 +100,7 @@ public class SetMessageExecutorTest {
 
     verify(config).set("format." + eventName, FormatCodes.stripFormats(newFormat));
 
-    String expectedMessage = "�e" + getMessage("Command.FormatsRemoved") + '\n'
+    String expectedMessage = ChatColor.YELLOW + getMessage("Command.FormatsRemoved") + '\n'
         + formatMessage("Command.MessageSet", eventName);
 
     verify(sender).sendMessage(expectedMessage);
