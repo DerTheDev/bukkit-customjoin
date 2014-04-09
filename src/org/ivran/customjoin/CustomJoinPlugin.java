@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.ivran.customjoin.command.CustomJoinExecutor;
 import org.ivran.customjoin.command.SetMessageExecutor;
 import org.ivran.customjoin.command.SetMyMessageExecutor;
+import org.ivran.customjoin.command.SetPlayerMessageExecutor;
 
 public class CustomJoinPlugin extends JavaPlugin {
 
@@ -27,6 +28,8 @@ public class CustomJoinPlugin extends JavaPlugin {
     getCommand("setkick").setExecutor(new SetMessageExecutor(manager, "Kick"));
     getCommand("setmyjoin").setExecutor(new SetMyMessageExecutor(manager, "Join"));
     getCommand("setmyquit").setExecutor(new SetMyMessageExecutor(manager, "Quit"));
+    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "Join"));
+    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "Quit"));
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(pdf));
 
     getServer().getPluginManager().registerEvents(new JoinLeaveListener(config), this);
