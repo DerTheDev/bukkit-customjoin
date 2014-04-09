@@ -30,7 +30,12 @@ public class FormatManager {
    *         should be omitted.
    */
   public String getFormat(String type, String playerName) {
-    String format = config.getString(getConfigPath(type, playerName));
+    String path = ("custom." + type + "." + playerName);
+    if (!config.isSet(path)) {
+      path = "format." + type;
+    }
+
+    String format = config.getString(path);
 
     if (format != null && !format.equalsIgnoreCase("none")) {
       return format;
@@ -40,12 +45,4 @@ public class FormatManager {
     }
   }
 
-  private String getConfigPath(String type, String playerName) {
-    String customPath = ("custom." + type + "." + playerName);
-    if (config.isSet(customPath)) {
-      return customPath;
-    }
-
-    return String.format("format.%s", type);
-  }
 }
