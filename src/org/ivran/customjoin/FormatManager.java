@@ -41,7 +41,7 @@ public class FormatManager {
   }
 
   private String getConfigPath(String type, String playerName) {
-    String customPath = String.format("custom.%s.%s", type, playerName);
+    String customPath = ("custom." + type + "." + playerName);
     if (config.isSet(customPath)) {
       return customPath;
     }
