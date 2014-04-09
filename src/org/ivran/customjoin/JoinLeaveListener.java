@@ -10,11 +10,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class JoinLeaveListener implements Listener {
 
-  private final FormatProvider provider;
+  private final FormatManager provider;
   private final MessageFormatter formatter;
 
   public JoinLeaveListener(FileConfiguration config) {
-    this.provider = new FormatProvider(config);
+    this.provider = new FormatManager(config);
     this.formatter = new MessageFormatter(config);
   }
 

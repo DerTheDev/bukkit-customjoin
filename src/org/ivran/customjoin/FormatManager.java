@@ -3,11 +3,11 @@ package org.ivran.customjoin;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-public class FormatProvider {
+public class FormatManager {
 
   private final FileConfiguration config;
 
-  public FormatProvider(FileConfiguration config) {
+  public FormatManager(FileConfiguration config) {
     this.config = config;
   }
 
