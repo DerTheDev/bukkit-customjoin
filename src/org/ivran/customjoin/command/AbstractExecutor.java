@@ -40,7 +40,7 @@ public abstract class AbstractExecutor implements CommandExecutor {
       return true;
     }
     catch (CheckException e) {
-      String message = getMessage("Color.Error") + getMessage(e.getMessage());
+      String message = getMessage("Color.Error") + e.getMessage();
       sender.sendMessage(FormatCodes.applyAll(message));
 
       return false;

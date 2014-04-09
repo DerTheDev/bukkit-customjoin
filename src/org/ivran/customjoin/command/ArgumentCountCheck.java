@@ -1,5 +1,7 @@
 package org.ivran.customjoin.command;
 
+import static org.ivran.customjoin.ResourceHelper.getMessage;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -16,7 +18,7 @@ public class ArgumentCountCheck implements ICommandCheck {
   @Override
   public void doCheck(CommandSender sender, Command cmd, String alias, String[] args) throws CheckException {
     if ((min > 0 && args.length < min) || (max > 0 && args.length > max)) {
-      throw new CheckException("Command.SyntaxError");
+      throw new CheckException(getMessage("Command.SyntaxError"));
     }
   }
 
