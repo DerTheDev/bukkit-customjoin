@@ -13,16 +13,18 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   private PluginDescriptionFile pdf;
   private FileConfiguration config;
+  private FormatManager manager;
 
   @Override
   public void onEnable() {
     config = getConfig();
     config.options().copyDefaults(true);
     pdf = getDescription();
+    manager = new FormatManager(config);
 
-    getCommand("setjoin").setExecutor(new SetMessageExecutor(config, "format.join", "Join"));
-    getCommand("setquit").setExecutor(new SetMessageExecutor(config, "format.quit", "Quit"));
-    getCommand("setkick").setExecutor(new SetMessageExecutor(config, "format.kick", "Kick"));
+    getCommand("setjoin").setExecutor(new SetMessageExecutor(manager, "Join"));
+    getCommand("setquit").setExecutor(new SetMessageExecutor(manager, "Quit"));
+    getCommand("setkick").setExecutor(new SetMessageExecutor(manager, "Kick"));
     getCommand("setmyjoin").setExecutor(new SetMyMessageExecutor(config, "Join"));
     getCommand("setmyquit").setExecutor(new SetMyMessageExecutor(config, "Quit"));
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(pdf));

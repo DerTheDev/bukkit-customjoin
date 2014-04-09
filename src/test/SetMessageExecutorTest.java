@@ -5,7 +5,6 @@ import static org.ivran.customjoin.ResourceHelper.getMessage;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,6 +16,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.FormatCodes;
+import org.ivran.customjoin.FormatManager;
 import org.ivran.customjoin.command.SetMessageExecutor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,9 +31,9 @@ public class SetMessageExecutorTest {
   @Parameters
   public static Collection<Object[]> params() {
     return Arrays.asList(new Object[][] {
-        {"format.join", "Join"},
-        {"format.quit", "Quit"},
-        {"format.kick", "Kick"}
+        {"Join"},
+        {"Quit"},
+        {"Kick"}
     });
   }
 
@@ -41,16 +41,16 @@ public class SetMessageExecutorTest {
   @Mock private CommandSender sender;
   @Mock private Command command;
 
+  private final FormatManager manager;
   private final SetMessageExecutor executor;
-  private final String configNode;
   private final String eventName;
   private final String newFormat;
 
-  public SetMessageExecutorTest(String configNode, String eventName) {
+  public SetMessageExecutorTest(String eventName) {
     MockitoAnnotations.initMocks(this);
 
-    executor = new SetMessageExecutor(config, configNode, eventName);
-    this.configNode = configNode;
+    manager = new FormatManager(config);
+    executor = new SetMessageExecutor(manager, eventName);
     this.eventName = eventName;
     newFormat = "&k&a%player has entered the server";
   }
@@ -58,11 +58,11 @@ public class SetMessageExecutorTest {
   @Test
   public void testWithoutPermission() {
     doThrow(new RuntimeException("Player did something without permission"))
-    .when(config).set(eq(configNode), anyString());
+    .when(config).set(anyString(), anyString());
 
     assertFalse(executor.onCommand(sender, command, "", new String[] {}));
 
-    verify(sender).sendMessage("§c" + getMessage("Command.NoPermission"));
+    verify(sender).sendMessage("ï¿½c" + getMessage("Command.NoPermission"));
   }
 
   @Test
@@ -71,7 +71,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(config).set(configNode, newFormat);
+    verify(config).set("format." + eventName, newFormat);
     verify(sender).sendMessage(formatMessage("Command.MessageSet", eventName));
   }
 
@@ -82,9 +82,9 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(config).set(configNode, FormatCodes.stripColors(newFormat));
+    verify(config).set("format." + eventName, FormatCodes.stripColors(newFormat));
 
-    String expectedMessage = "§e" + getMessage("Command.ColorsRemoved") + '\n'
+    String expectedMessage = "ï¿½e" + getMessage("Command.ColorsRemoved") + '\n'
         + formatMessage("Command.MessageSet", eventName);
 
     verify(sender).sendMessage(expectedMessage);
@@ -97,9 +97,9 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(config).set(configNode, FormatCodes.stripFormats(newFormat));
+    verify(config).set("format." + eventName, FormatCodes.stripFormats(newFormat));
 
-    String expectedMessage = "§e" + getMessage("Command.FormatsRemoved") + '\n'
+    String expectedMessage = "ï¿½e" + getMessage("Command.FormatsRemoved") + '\n'
         + formatMessage("Command.MessageSet", eventName);
 
     verify(sender).sendMessage(expectedMessage);
@@ -111,7 +111,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
 
-    verify(config).set(configNode, null);
+    verify(config).set("format." + eventName, null);
     verify(sender).sendMessage(formatMessage("Command.MessageReset", eventName));
   }
 

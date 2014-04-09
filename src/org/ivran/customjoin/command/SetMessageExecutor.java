@@ -3,31 +3,29 @@ package org.ivran.customjoin.command;
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.ivran.customjoin.FormatManager;
 
 public class SetMessageExecutor extends SetMessageBase {
 
-  private final FileConfiguration config;
-  private final String configNode;
+  private final FormatManager manager;
   private final String eventName;
 
-  public SetMessageExecutor(FileConfiguration config, String configNode, String eventName) {
+  public SetMessageExecutor(FormatManager manager, String eventName) {
     super();
     addCheck(new PermissionCheck("customjoin.set"));
 
-    this.config = config;
-    this.configNode = configNode;
+    this.manager = manager;
     this.eventName = eventName;
   }
 
   @Override
   protected String saveFormat(CommandSender sender, String format, String[] args) {
+    manager.setFormat(eventName, format);
+
     if (format == null) {
-      config.set(configNode, null);
       return formatMessage("Command.MessageReset", eventName);
     }
     else {
-      config.set(configNode, format);
       return formatMessage("Command.MessageSet", eventName);
     }
   }
