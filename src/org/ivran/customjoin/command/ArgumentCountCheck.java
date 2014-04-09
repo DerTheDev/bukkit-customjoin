@@ -18,7 +18,7 @@ public class ArgumentCountCheck implements ICommandCheck {
   @Override
   public void doCheck(CommandSender sender, Command cmd, String alias, String[] args) throws CheckException {
     if ((min > 0 && args.length < min) || (max > 0 && args.length > max)) {
-      throw new CheckException(getMessage("Command.SyntaxError"));
+      throw new CheckException(getMessage("Command.SyntaxError") + '\n' + cmd.getUsage());
     }
   }
 
