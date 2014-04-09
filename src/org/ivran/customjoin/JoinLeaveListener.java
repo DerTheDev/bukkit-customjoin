@@ -19,7 +19,7 @@ public class JoinLeaveListener implements Listener {
   }
 
   private String fetchMessage(String eventType, Player player, String reason) {
-    return formatter.format(provider.getFormat(eventType, player), player, reason);
+    return formatter.format(provider.getFormat(eventType, player.getName()), player, reason);
   }
 
   @EventHandler

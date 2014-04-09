@@ -1,7 +1,6 @@
 package org.ivran.customjoin;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 public class FormatManager {
 
@@ -22,8 +21,8 @@ public class FormatManager {
    * @return The message format for this event, or {@code null} if the message
    *         should be omitted.
    */
-  public String getFormat(String type, Player player) {
-    String format = config.getString(getConfigPath(type, player));
+  public String getFormat(String type, String playerName) {
+    String format = config.getString(getConfigPath(type, playerName));
 
     if (format != null && !format.equalsIgnoreCase("none")) {
       return format;
@@ -33,8 +32,8 @@ public class FormatManager {
     }
   }
 
-  private String getConfigPath(String type, Player player) {
-    String customPath = String.format("custom.%s.%s", type, player.getName());
+  private String getConfigPath(String type, String playerName) {
+    String customPath = String.format("custom.%s.%s", type, playerName);
     if (config.isSet(customPath)) {
       return customPath;
     }
