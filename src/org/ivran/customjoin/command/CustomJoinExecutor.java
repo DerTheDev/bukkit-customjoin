@@ -1,7 +1,7 @@
 package org.ivran.customjoin.command;
 
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
-import static org.ivran.customjoin.ResourceHelper.getMessage;
+import static org.ivran.customjoin.ResourceHelper.getColor;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,7 +17,7 @@ public class CustomJoinExecutor extends AbstractExecutor {
 
   @Override
   protected String execute(CommandSender sender, Command cmd, String[] args) {
-    return getMessage("Color.Default") + formatMessage("Plugin.Info", pdf.getName(), pdf.getVersion());
+    return getColor("Default") + formatMessage("Plugin.Info", pdf.getName(), pdf.getVersion());
   }
 
 }

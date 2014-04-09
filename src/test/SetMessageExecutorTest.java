@@ -1,6 +1,7 @@
 package test;
 
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
+import static org.ivran.customjoin.ResourceHelper.getColor;
 import static org.ivran.customjoin.ResourceHelper.getMessage;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,7 +13,6 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.ivran.customjoin.FormatCodes;
@@ -60,7 +60,7 @@ public class SetMessageExecutorTest {
 
     assertFalse(executor.onCommand(sender, command, "", new String[] {}));
 
-    verify(sender).sendMessage(ChatColor.RED + getMessage("Command.NoPermission"));
+    verify(sender).sendMessage(getColor("Error") + getMessage("Command.NoPermission"));
   }
 
   @Test
@@ -70,7 +70,7 @@ public class SetMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
     verify(manager).setFormat(eventName, newFormat);
-    verify(sender).sendMessage(formatMessage("Command.MessageSet", eventName));
+    verify(sender).sendMessage(getColor("Success") + formatMessage("Command.MessageSet", eventName));
   }
 
   @Test
@@ -82,8 +82,8 @@ public class SetMessageExecutorTest {
 
     verify(manager).setFormat(eventName, FormatCodes.stripColors(newFormat));
 
-    String expectedMessage = ChatColor.YELLOW + getMessage("Command.ColorsRemoved") + '\n'
-        + formatMessage("Command.MessageSet", eventName);
+    String expectedMessage = getColor("Warning") + getMessage("Command.ColorsRemoved") + '\n'
+        + getColor("Success") + formatMessage("Command.MessageSet", eventName);
 
     verify(sender).sendMessage(expectedMessage);
   }
@@ -97,8 +97,8 @@ public class SetMessageExecutorTest {
 
     verify(manager).setFormat(eventName, FormatCodes.stripFormats(newFormat));
 
-    String expectedMessage = ChatColor.YELLOW + getMessage("Command.FormatsRemoved") + '\n'
-        + formatMessage("Command.MessageSet", eventName);
+    String expectedMessage = getColor("Warning") + getMessage("Command.FormatsRemoved") + '\n'
+        + getColor("Success") + formatMessage("Command.MessageSet", eventName);
 
     verify(sender).sendMessage(expectedMessage);
   }
@@ -110,7 +110,7 @@ public class SetMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
 
     verify(manager).setFormat(eventName, null);
-    verify(sender).sendMessage(formatMessage("Command.MessageReset", eventName));
+    verify(sender).sendMessage(getColor("Success") + formatMessage("Command.MessageReset", eventName));
   }
 
 }

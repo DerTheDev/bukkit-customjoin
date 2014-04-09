@@ -1,6 +1,7 @@
 package org.ivran.customjoin.command;
 
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
+import static org.ivran.customjoin.ResourceHelper.getColor;
 
 import org.bukkit.command.CommandSender;
 import org.ivran.customjoin.FormatManager;
@@ -23,10 +24,10 @@ public class SetMessageExecutor extends SetMessageBase {
     manager.setFormat(eventName, format);
 
     if (format == null) {
-      return formatMessage("Command.MessageReset", eventName);
+      return getColor("Success") + formatMessage("Command.MessageReset", eventName);
     }
     else {
-      return formatMessage("Command.MessageSet", eventName);
+      return getColor("Success") + formatMessage("Command.MessageSet", eventName);
     }
   }
 

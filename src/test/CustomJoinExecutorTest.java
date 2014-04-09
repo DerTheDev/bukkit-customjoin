@@ -1,7 +1,7 @@
 package test;
 
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
-import static org.ivran.customjoin.ResourceHelper.getMessage;
+import static org.ivran.customjoin.ResourceHelper.getColor;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
@@ -28,7 +28,7 @@ public class CustomJoinExecutorTest {
     final String name = "CustomJoin";
     final String version = "1.0";
     final String expectedMessage = FormatCodes.applyAll(
-        getMessage("Color.Default") + formatMessage("Plugin.Info", name, version));
+        getColor("Default") + formatMessage("Plugin.Info", name, version));
     final PluginDescriptionFile pdf = new PluginDescriptionFile(name, version, null);
     final CustomJoinExecutor executor = new CustomJoinExecutor(pdf);
 
