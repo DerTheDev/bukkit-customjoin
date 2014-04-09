@@ -17,7 +17,7 @@ public class FormatManager {
    *          The type of the event; Either one of "join", "quit" or "kick" is
    *          expected.
    * @param player
-   *          The player involved in the event.
+   *          The name of the player involved in the event.
    * @return The message format for this event, or {@code null} if the message
    *         should be omitted.
    */
