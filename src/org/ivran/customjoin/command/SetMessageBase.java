@@ -42,6 +42,7 @@ public abstract class SetMessageBase extends AbstractExecutor {
 
     statusBuilder
     .append(saveFormat(sender, format, args))
+    .append('\n')
     .append(getColor("Default"))
     .append(getMessage("Command.MessagePreview"))
     .append(ChatColor.RESET)
