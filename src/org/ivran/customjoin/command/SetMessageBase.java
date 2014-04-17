@@ -48,6 +48,7 @@ public abstract class SetMessageBase extends AbstractExecutor {
       .append(getColor("Default"))
       .append(getMessage("Command.MessagePreview"))
       .append(ChatColor.RESET)
+      .append(' ')
       .append(formatter.format(format, "Steve"));
     }
 
