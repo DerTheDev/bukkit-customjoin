@@ -40,7 +40,7 @@ public class CustomJoinPlugin extends JavaPlugin {
     getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "quit"));
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(pdf));
 
-    final JoinLeaveListener listener = new JoinLeaveListener(new MessageFormatter(config), manager);
+    final JoinLeaveListener listener = new JoinLeaveListener(config, manager);
     getServer().getPluginManager().registerEvents(listener, this);
     LOG.info(formatMessage("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
   }

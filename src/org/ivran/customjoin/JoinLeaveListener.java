@@ -1,5 +1,6 @@
 package org.ivran.customjoin;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,16 +10,27 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class JoinLeaveListener implements Listener {
 
+  private final FileConfiguration config;
   private final FormatManager manager;
   private final MessageFormatter formatter;
 
-  public JoinLeaveListener(MessageFormatter formatter, FormatManager manager) {
+  public JoinLeaveListener(FileConfiguration config, FormatManager manager) {
+    this.config = config;
     this.manager = manager;
-    this.formatter = formatter;
+    formatter = new MessageFormatter();
+  }
+
+  private String getPlayerName(Player player) {
+    if (config.getBoolean("force-real-name")) {
+      return player.getName();
+    }
+    else {
+      return player.getDisplayName();
+    }
   }
 
   private String fetchMessage(String eventType, Player player, String reason) {
-    return formatter.format(manager.getFormat(eventType, player.getName()), player, reason);
+    return formatter.format(manager.getFormat(eventType, player.getName()), getPlayerName(player), reason);
   }
 
   @EventHandler
