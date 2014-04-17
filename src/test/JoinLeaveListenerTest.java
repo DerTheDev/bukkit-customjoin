@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.ivran.customjoin.FormatManager;
 import org.ivran.customjoin.JoinLeaveListener;
-import org.ivran.customjoin.MessageFormatter;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -32,7 +31,7 @@ public class JoinLeaveListenerTest {
     when(config.getString("format.kick")).thenReturn("%player was kicked: %reason");
 
     manager = new FormatManager(config);
-    listener = new JoinLeaveListener(new MessageFormatter(config), manager);
+    listener = new JoinLeaveListener(config, manager);
 
     playerName = "Steve";
     displayName = "Stevenson";
