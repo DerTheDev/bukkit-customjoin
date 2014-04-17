@@ -1,8 +1,5 @@
 package test;
 
-import static org.ivran.customjoin.ResourceHelper.formatMessage;
-import static org.ivran.customjoin.ResourceHelper.getColor;
-import static org.ivran.customjoin.ResourceHelper.getMessage;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -62,8 +59,6 @@ public class SetPlayerMessageExecutorTest {
     .when(manager).setFormat(anyString(), anyString(), anyString());
 
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
-
-    verify(sender).sendMessage(getColor("Error") + getMessage("Command.NoPermission"));
   }
 
   @Test
@@ -73,7 +68,6 @@ public class SetPlayerMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", ("John " + newFormat).split(" ")));
 
     verify(manager).setFormat(eventName, "John", newFormat);
-    verify(sender).sendMessage(getColor("Success") + formatMessage("Command.PlayerMessageSet", "John", eventName));
   }
 
   @Test
@@ -84,11 +78,6 @@ public class SetPlayerMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", ("John " + newFormat).split(" ")));
 
     verify(manager).setFormat(eventName, "John", FormatCodes.stripColors(newFormat));
-
-    String expectedMessage = getColor("Warning") + getMessage("Command.ColorsRemoved") + '\n'
-        + getColor("Success") + formatMessage("Command.PlayerMessageSet", "John", eventName);
-
-    verify(sender).sendMessage(expectedMessage);
   }
 
   @Test
@@ -99,11 +88,6 @@ public class SetPlayerMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", ("John " + newFormat).split(" ")));
 
     verify(manager).setFormat(eventName, "John", FormatCodes.stripFormats(newFormat));
-
-    String expectedMessage = getColor("Warning") + getMessage("Command.FormatsRemoved") + '\n'
-        + getColor("Success") + formatMessage("Command.PlayerMessageSet", "John", eventName);
-
-    verify(sender).sendMessage(expectedMessage);
   }
 
   @Test
@@ -113,7 +97,6 @@ public class SetPlayerMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", new String[] {"John"}));
 
     verify(manager).setFormat(eventName, "John", null);
-    verify(sender).sendMessage(getColor("Success") + formatMessage("Command.PlayerMessageReset", "John", eventName));
   }
 
 }

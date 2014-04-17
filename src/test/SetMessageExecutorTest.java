@@ -1,8 +1,5 @@
 package test;
 
-import static org.ivran.customjoin.ResourceHelper.formatMessage;
-import static org.ivran.customjoin.ResourceHelper.getColor;
-import static org.ivran.customjoin.ResourceHelper.getMessage;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -58,8 +55,6 @@ public class SetMessageExecutorTest {
     .when(manager).setFormat(anyString(), anyString());
 
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
-
-    verify(sender).sendMessage(getColor("Error") + getMessage("Command.NoPermission"));
   }
 
   @Test
@@ -69,7 +64,6 @@ public class SetMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
     verify(manager).setFormat(eventName, newFormat);
-    verify(sender).sendMessage(getColor("Success") + formatMessage("Command.MessageSet", eventName));
   }
 
   @Test
@@ -80,11 +74,6 @@ public class SetMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
     verify(manager).setFormat(eventName, FormatCodes.stripColors(newFormat));
-
-    String expectedMessage = getColor("Warning") + getMessage("Command.ColorsRemoved") + '\n'
-        + getColor("Success") + formatMessage("Command.MessageSet", eventName);
-
-    verify(sender).sendMessage(expectedMessage);
   }
 
   @Test
@@ -95,11 +84,6 @@ public class SetMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
     verify(manager).setFormat(eventName, FormatCodes.stripFormats(newFormat));
-
-    String expectedMessage = getColor("Warning") + getMessage("Command.FormatsRemoved") + '\n'
-        + getColor("Success") + formatMessage("Command.MessageSet", eventName);
-
-    verify(sender).sendMessage(expectedMessage);
   }
 
   @Test
@@ -109,7 +93,6 @@ public class SetMessageExecutorTest {
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
 
     verify(manager).setFormat(eventName, null);
-    verify(sender).sendMessage(getColor("Success") + formatMessage("Command.MessageReset", eventName));
   }
 
 }
