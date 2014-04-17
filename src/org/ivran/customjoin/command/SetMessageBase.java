@@ -3,11 +3,19 @@ package org.ivran.customjoin.command;
 import static org.ivran.customjoin.ResourceHelper.getColor;
 import static org.ivran.customjoin.ResourceHelper.getMessage;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.ivran.customjoin.FormatCodes;
+import org.ivran.customjoin.MessageFormatter;
 
 public abstract class SetMessageBase extends AbstractExecutor {
+
+  private final MessageFormatter formatter;
+
+  public SetMessageBase() {
+    formatter = new MessageFormatter();
+  }
 
   @Override
   protected String execute(CommandSender sender, Command cmd, String[] args) {
@@ -32,7 +40,14 @@ public abstract class SetMessageBase extends AbstractExecutor {
       }
     }
 
-    return statusBuilder.append(saveFormat(sender, format, args)).toString();
+    statusBuilder
+    .append(saveFormat(sender, format, args))
+    .append(getColor("Default"))
+    .append(getMessage("Command.MessagePreview"))
+    .append(ChatColor.RESET)
+    .append(formatter.format(format, "Steve"));
+
+    return statusBuilder.toString();
   }
 
   protected String createFormat(CommandSender sender, Command cmd, String[] args) {
