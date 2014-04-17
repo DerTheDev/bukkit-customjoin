@@ -40,13 +40,16 @@ public abstract class SetMessageBase extends AbstractExecutor {
       }
     }
 
-    statusBuilder
-    .append(saveFormat(sender, format, args))
-    .append('\n')
-    .append(getColor("Default"))
-    .append(getMessage("Command.MessagePreview"))
-    .append(ChatColor.RESET)
-    .append(formatter.format(format, "Steve"));
+    statusBuilder.append(saveFormat(sender, format, args));
+
+    if (format != null) {
+      statusBuilder
+      .append('\n')
+      .append(getColor("Default"))
+      .append(getMessage("Command.MessagePreview"))
+      .append(ChatColor.RESET)
+      .append(formatter.format(format, "Steve"));
+    }
 
     return statusBuilder.toString();
   }
