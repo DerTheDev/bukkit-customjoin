@@ -13,12 +13,14 @@ message-limit: 70
 
 # Require %player to be in the format for the specified commands.
 require-player-name:
-  setjoin: false
-  setquit: false
-  setmyjoin: false
-  setmyquit: false
-  setplayerjoin: false
-  setplayerquit: false
+  # For /setjoin, /setquit and /setkick
+  set: false
+  
+  # For /setmyjoin and /setmyquit
+  setmy: false
+  
+  # For /setplayerjoin and /setplayerquit
+  setplayer: false
 
 # To disable a message, set the format to 'none'.
 format:
