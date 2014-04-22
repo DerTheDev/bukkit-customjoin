@@ -2,9 +2,15 @@ package org.ivran.customjoin;
 
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.ivran.customjoin.command.CustomJoinExecutor;
@@ -18,15 +24,41 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   private final PluginDescriptionFile pdf;
   private final FileConfiguration config;
+  private final FileConfiguration formats;
   private final FormatManager manager;
 
   public CustomJoinPlugin() {
     super();
     pdf = getDescription();
-    config = getConfig();
-    manager = new FormatManager(config);
 
+    saveDefaultConfig();
+    config = getConfig();
     config.options().copyDefaults(true);
+
+    File formatsFile = new File(getDataFolder(), "formats.yml");
+    if (!formatsFile.exists()) {
+      writeDefaultFormats(formatsFile);
+    }
+
+    formats = YamlConfiguration.loadConfiguration(formatsFile);
+    manager = new FormatManager(formats);
+  }
+
+  private void writeDefaultFormats(File file) {
+    try (
+        OutputStream out = new FileOutputStream(file);
+        InputStream in = getResource(file.getName())) {
+
+      int i;
+      while ((i = in.read()) != -1) {
+        out.write(i);
+      }
+
+      out.close();
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override

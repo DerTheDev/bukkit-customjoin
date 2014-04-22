@@ -4,18 +4,18 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class FormatManager {
 
-  private final FileConfiguration config;
+  private final FileConfiguration formats;
 
-  public FormatManager(FileConfiguration config) {
-    this.config = config;
+  public FormatManager(FileConfiguration formats) {
+    this.formats = formats;
   }
 
   public void setFormat(String type, String format) {
-    config.set(("format." + type), format);
+    formats.set(("format." + type), format);
   }
 
   public void setFormat(String type, String playerName, String format) {
-    config.set(("custom." + type + "." + playerName), format);
+    formats.set(("custom." + type + "." + playerName), format);
   }
 
   /**
@@ -31,11 +31,11 @@ public class FormatManager {
    */
   public String getFormat(String type, String playerName) {
     String path = ("custom." + type + "." + playerName);
-    if (!config.isSet(path)) {
+    if (!formats.isSet(path)) {
       path = "format." + type;
     }
 
-    String format = config.getString(path);
+    String format = formats.getString(path);
 
     if (format != null && !format.equalsIgnoreCase("none")) {
       return format;
