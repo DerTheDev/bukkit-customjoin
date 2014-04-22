@@ -64,6 +64,21 @@ public class SetPlayerMessageExecutorTest {
   }
 
   @Test
+  public void testWithoutPlayerName() {
+    when(sender.hasPermission(anyString())).thenReturn(true);
+    when(config.getBoolean("require-player-name.setplayer")).thenReturn(true);
+
+    final SetPlayerMessageExecutor executor = new SetPlayerMessageExecutor(config, manager, eventName);
+
+    doThrow(new RuntimeException("%player was not in the format, manager.setFormat called anyway"))
+    .when(manager).setFormat(anyString(), anyString());
+
+    final String format = "This format does not contain a player name token!";
+
+    assertTrue(executor.onCommand(sender, command, "", format.split(" ")));
+  }
+
+  @Test
   public void testSet() {
     when(sender.hasPermission(anyString())).thenReturn(true);
 
