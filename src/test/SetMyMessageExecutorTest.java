@@ -56,6 +56,19 @@ public class SetMyMessageExecutorTest {
   }
 
   @Test
+  public void testLengthLimit() {
+    final String format = "This message format is way too long!";
+
+    when(sender.hasPermission(anyString())).thenReturn(true);
+    when(config.getInt("message-limit")).thenReturn(1);
+
+    doThrow(new RuntimeException("Message was too long, manager.setFormat called anyway"))
+    .when(manager).setFormat(anyString(), anyString(), anyString());
+
+    assertTrue(executor.onCommand(sender, command, "", format.split(" ")));
+  }
+
+  @Test
   public void testWithoutPermission() {
     doThrow(new RuntimeException("Player did something without permission"))
     .when(manager).setFormat(anyString(), anyString(), anyString());
