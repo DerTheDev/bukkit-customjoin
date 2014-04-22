@@ -24,6 +24,7 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   private final PluginDescriptionFile pdf;
   private final FileConfiguration config;
+  private final File formatsFile;
   private final FileConfiguration formats;
   private final FormatManager manager;
 
@@ -35,7 +36,7 @@ public class CustomJoinPlugin extends JavaPlugin {
     config = getConfig();
     config.options().copyDefaults(true);
 
-    File formatsFile = new File(getDataFolder(), "formats.yml");
+    formatsFile = new File(getDataFolder(), "formats.yml");
     if (!formatsFile.exists()) {
       writeDefaultFormats(formatsFile);
     }
@@ -79,7 +80,12 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    saveConfig();
+    try {
+      formats.save(formatsFile);
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
     LOG.info(formatMessage("Plugin.Disabled", pdf.getName()));
   }
 }
