@@ -26,9 +26,9 @@ public class JoinLeaveListenerTest {
   public JoinLeaveListenerTest() {
     MockitoAnnotations.initMocks(this);
 
-    when(config.getString("format.join")).thenReturn("%player has joined the game");
-    when(config.getString("format.quit")).thenReturn("%player has left the game");
-    when(config.getString("format.kick")).thenReturn("%player was kicked: %reason");
+    when(config.getString("default.join")).thenReturn("%player has joined the game");
+    when(config.getString("default.quit")).thenReturn("%player has left the game");
+    when(config.getString("default.kick")).thenReturn("%player was kicked: %reason");
 
     manager = new FormatManager(config);
     listener = new JoinLeaveListener(config, manager);

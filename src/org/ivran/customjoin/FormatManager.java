@@ -11,7 +11,7 @@ public class FormatManager {
   }
 
   public void setFormat(String type, String format) {
-    formats.set(("format." + type), format);
+    formats.set(("default." + type), format);
   }
 
   public void setFormat(String type, String playerName, String format) {
@@ -32,7 +32,7 @@ public class FormatManager {
   public String getFormat(String type, String playerName) {
     String path = ("custom." + type + "." + playerName);
     if (!formats.isSet(path)) {
-      path = "format." + type;
+      path = "default." + type;
     }
 
     String format = formats.getString(path);

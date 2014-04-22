@@ -24,7 +24,7 @@ public class FormatManagerTest {
 
   @Test
   public void testGetFormat() {
-    when(config.getString("format.join")).thenReturn(format);
+    when(config.getString("default.join")).thenReturn(format);
 
     assertEquals(format, manager.getFormat("join", null));
   }
@@ -41,7 +41,7 @@ public class FormatManagerTest {
   public void testSetFormat() {
     manager.setFormat("join", format);
 
-    verify(config).set("format.join", format);
+    verify(config).set("default.join", format);
   }
 
   @Test
