@@ -2,24 +2,34 @@ package org.ivran.customjoin.command;
 
 import static org.ivran.customjoin.ResourceHelper.getColor;
 import static org.ivran.customjoin.ResourceHelper.getMessage;
+import static org.ivran.customjoin.ResourceHelper.formatMessage;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.MessageFormatter;
 
 public abstract class SetMessageBase extends AbstractExecutor {
 
+  private final FileConfiguration config;
   private final MessageFormatter formatter;
 
-  public SetMessageBase() {
+  public SetMessageBase(FileConfiguration config) {
+    this.config = config;
     formatter = new MessageFormatter();
   }
 
   @Override
-  protected String execute(CommandSender sender, Command cmd, String[] args) {
+  protected String execute(CommandSender sender, Command cmd, String[] args) throws CheckException {
     String format = createFormat(sender, cmd, args);
+
+    int limit = config.getInt("message-limit");
+    if (limit > 0 && format.length() > limit) {
+      throw new CheckException(formatMessage("Command.MessageTooLong", limit));
+    }
+
     StringBuilder statusBuilder = new StringBuilder();
 
     if (format != null) {

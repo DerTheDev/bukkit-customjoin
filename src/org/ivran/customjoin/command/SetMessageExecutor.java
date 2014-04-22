@@ -14,7 +14,7 @@ public class SetMessageExecutor extends SetMessageBase {
   private final String eventName;
 
   public SetMessageExecutor(FileConfiguration config, FormatManager manager, String eventName) {
-    super();
+    super(config);
     addCheck(new PermissionCheck("customjoin.set"));
 
     if (config.getBoolean("require-player-name.set")) {

@@ -15,7 +15,7 @@ public class SetPlayerMessageExecutor extends SetMessageBase {
   private final String eventName;
 
   public SetPlayerMessageExecutor(FileConfiguration config, FormatManager manager, String eventName) {
-    super();
+    super(config);
     addCheck(new PermissionCheck("customjoin.set"));
     addCheck(new ArgumentCountCheck(1, -1));
 

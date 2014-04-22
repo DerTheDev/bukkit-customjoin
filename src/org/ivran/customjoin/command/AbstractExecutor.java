@@ -26,7 +26,7 @@ public abstract class AbstractExecutor implements CommandExecutor {
    * Called after it was ensured that the command can be executed.
    * @return A status message for the player.
    */
-  protected abstract String execute(CommandSender sender, Command cmd, String[] args);
+  protected abstract String execute(CommandSender sender, Command cmd, String[] args) throws CheckException;
 
   @Override
   public final boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
