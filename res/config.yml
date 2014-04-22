@@ -8,10 +8,20 @@
 # names in login- and logout-messages.
 force-real-name: false
 
+# Limit the length of custom message formats. Set to -1 to disable.
+message-limit: 70
+
+# Require %player to be in the format for the specified commands.
+require-player-name:
+  setjoin: false
+  setquit: false
+  setmyjoin: false
+  setmyquit: false
+  setplayerjoin: false
+  setplayerquit: false
+
 # To disable a message, set the format to 'none'.
-# Also, remember to use "/customjoin reload" if you're modifying the messages
-# while the server is running.
 format:
-    join: '&e%player joined the game'
-    quit: '&e%player left the game'
-    kick: '&e%player was kicked: %reason'
+  join: '&e%player joined the game'
+  quit: '&e%player left the game'
+  kick: '&e%player was kicked: %reason'
