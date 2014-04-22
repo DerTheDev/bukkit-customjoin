@@ -1,10 +1,12 @@
 package org.ivran.customjoin.command;
 
+import static org.ivran.customjoin.ResourceHelper.getMessage;
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
 import static org.ivran.customjoin.ResourceHelper.getColor;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.ivran.customjoin.FormatManager;
 
 public class SetPlayerMessageExecutor extends SetMessageBase {
@@ -12,10 +14,14 @@ public class SetPlayerMessageExecutor extends SetMessageBase {
   private final FormatManager manager;
   private final String eventName;
 
-  public SetPlayerMessageExecutor(FormatManager manager, String eventName) {
+  public SetPlayerMessageExecutor(FileConfiguration config, FormatManager manager, String eventName) {
     super();
     addCheck(new PermissionCheck("customjoin.set"));
     addCheck(new ArgumentCountCheck(1, -1));
+
+    if (config.getBoolean("require-player-name.setplayer")) {
+      addCheck(new ArgumentsContainCheck("%player", getMessage("Command.PlayerNameNotFound")));
+    }
 
     this.manager = manager;
     this.eventName = eventName;
