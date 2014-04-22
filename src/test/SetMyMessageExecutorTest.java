@@ -12,6 +12,7 @@ import java.util.Collection;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.FormatManager;
@@ -34,6 +35,7 @@ public class SetMyMessageExecutorTest {
     });
   }
 
+  @Mock private FileConfiguration config;
   @Mock private FormatManager manager;
   @Mock private Command command;
 
@@ -48,7 +50,7 @@ public class SetMyMessageExecutorTest {
     sender = mock(Player.class);
     when(sender.getName()).thenReturn("Steve");
 
-    executor = new SetMyMessageExecutor(manager, eventName);
+    executor = new SetMyMessageExecutor(config, manager, eventName);
     this.eventName = eventName;
     newFormat = "&k&a%player has entered the server";
   }

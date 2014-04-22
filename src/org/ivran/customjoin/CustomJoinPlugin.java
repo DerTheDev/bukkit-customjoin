@@ -31,13 +31,13 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   @Override
   public void onEnable() {
-    getCommand("setjoin").setExecutor(new SetMessageExecutor(manager, "join"));
-    getCommand("setquit").setExecutor(new SetMessageExecutor(manager, "quit"));
-    getCommand("setkick").setExecutor(new SetMessageExecutor(manager, "kick"));
-    getCommand("setmyjoin").setExecutor(new SetMyMessageExecutor(manager, "join"));
-    getCommand("setmyquit").setExecutor(new SetMyMessageExecutor(manager, "quit"));
-    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "join"));
-    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(manager, "quit"));
+    getCommand("setjoin").setExecutor(new SetMessageExecutor(config, manager, "join"));
+    getCommand("setquit").setExecutor(new SetMessageExecutor(config, manager, "quit"));
+    getCommand("setkick").setExecutor(new SetMessageExecutor(config, manager, "kick"));
+    getCommand("setmyjoin").setExecutor(new SetMyMessageExecutor(config, manager, "join"));
+    getCommand("setmyquit").setExecutor(new SetMyMessageExecutor(config, manager, "quit"));
+    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(config, manager, "join"));
+    getCommand("setplayerjoin").setExecutor(new SetPlayerMessageExecutor(config, manager, "quit"));
     getCommand("customjoin").setExecutor(new CustomJoinExecutor(pdf));
 
     final JoinLeaveListener listener = new JoinLeaveListener(config, manager);
