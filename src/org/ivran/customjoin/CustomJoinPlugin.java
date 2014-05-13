@@ -64,6 +64,10 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   @Override
   public void onEnable() {
+    new ConfigConverter(config, formats).convert();
+    saveFormats();
+    saveConfig();
+
     getCommand("setjoin").setExecutor(new SetMessageExecutor(config, manager, "join"));
     getCommand("setquit").setExecutor(new SetMessageExecutor(config, manager, "quit"));
     getCommand("setkick").setExecutor(new SetMessageExecutor(config, manager, "kick"));
@@ -76,6 +80,15 @@ public class CustomJoinPlugin extends JavaPlugin {
     final JoinLeaveListener listener = new JoinLeaveListener(config, manager);
     getServer().getPluginManager().registerEvents(listener, this);
     LOG.info(formatMessage("Plugin.Enabled", pdf.getName(), pdf.getVersion()));
+  }
+
+  private void saveFormats() {
+    try {
+      formats.save(formatsFile);
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
