@@ -23,6 +23,10 @@ public abstract class SetMessageBase extends AbstractExecutor {
 
   @Override
   protected String execute(CommandSender sender, Command cmd, String[] args) throws CheckException {
+    if (args.length == 0) {
+      throw new CheckException(getMessage("Command.SyntaxError"));
+    }
+
     String format = createFormat(sender, cmd, args);
 
     int limit = config.getInt("message-limit");
