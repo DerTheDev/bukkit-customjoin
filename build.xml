@@ -7,7 +7,7 @@
   <property name="dir.dist" location="dist" />
   <property name="dir.lib" location="lib" />
 
-  <property name="version" value="1.5" />
+  <property name="version" value="1.5.1" />
 
   <property name="lib.bukkit" value="${dir.lib}/craftbukkit-1.7.2-R0.3.jar" />
 
