@@ -95,12 +95,7 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    try {
-      formats.save(formatsFile);
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
+    saveFormats();
     LOG.info(formatMessage("Plugin.Disabled", pdf.getName()));
   }
 }
