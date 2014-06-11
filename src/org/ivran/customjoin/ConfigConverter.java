@@ -7,13 +7,18 @@ public class ConfigConverter {
 
   private final FileConfiguration oldConfig;
   private final FileConfiguration formats;
+  private boolean modified;
 
   public ConfigConverter(FileConfiguration oldConfig, FileConfiguration formats) {
     this.oldConfig = oldConfig;
     this.formats = formats;
+    modified = false;
   }
 
-  public void convert() {
+  /**
+   * @return {@code true} if modifications were made.
+   */
+  public boolean convert() {
     move("format.join", "default.join");
     move("format.quit", "default.quit");
     move("format.kick", "default.kick");
@@ -21,12 +26,15 @@ public class ConfigConverter {
     oldConfig.set("format", null);
 
     moveCustomFormats();
+    
+    return modified;
   }
-
+  
   private void move(String oldPath, String newPath) {
     if (oldConfig.isString(oldPath)) {
       formats.set(newPath, oldConfig.getString(oldPath));
       oldConfig.set(oldPath, null);
+      modified = true;
     }
   }
 
@@ -40,6 +48,7 @@ public class ConfigConverter {
       formats.set("custom." + key, customSection.getString(key));
     }
     oldConfig.set("custom", null);
+    modified = true;
   }
 
 }

@@ -64,9 +64,11 @@ public class CustomJoinPlugin extends JavaPlugin {
 
   @Override
   public void onEnable() {
-    new ConfigConverter(config, formats).convert();
-    saveFormats();
-    saveConfig();
+    ConfigConverter converter = new ConfigConverter(config, formats);
+    if (converter.convert()) {
+      saveFormats();
+      saveConfig();
+    }
 
     getCommand("setjoin").setExecutor(new SetMessageExecutor(config, manager, "join"));
     getCommand("setquit").setExecutor(new SetMessageExecutor(config, manager, "quit"));
