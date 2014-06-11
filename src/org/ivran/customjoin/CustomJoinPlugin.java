@@ -102,3 +102,4 @@ public class CustomJoinPlugin extends JavaPlugin {
     LOG.info(formatMessage("Plugin.Disabled", pdf.getName()));
   }
 }
+
