@@ -24,7 +24,7 @@ public class ConfigConverter {
   }
 
   private void move(String oldPath, String newPath) {
-    if (!oldConfig.isString(oldPath)) {
+    if (oldConfig.isString(oldPath)) {
       formats.set(newPath, oldConfig.getString(oldPath));
       oldConfig.set(oldPath, null);
     }
