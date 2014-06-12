@@ -1,0 +1,64 @@
+name: 'CustomJoin'
+version: '%VERSION%'
+author: 'rossotorres'
+main: 'org.ivran.customjoin.CustomJoinPlugin'
+description: 'Customize the join/leave/kick-messages of your server'
+
+commands:
+  setjoin:
+    description: Set the default join message
+    usage: /setjoin [message]
+
+  setquit:
+    description: Set the default quit message
+    usage: /setquit [message]
+
+  setkick:
+    description: Set the default kick message
+    usage: /setkick [message]
+
+  setmyjoin:
+    description: Set your own join message (leave message empty to reset)
+    usage: /setmyjoin [message]
+
+  setmyquit:
+    description: Set your own quit message (leave message empty to reset)
+    usage: /setmyquit [message]
+
+  setplayerjoin:
+    description: Set another player's join message (leave message empty to reset)
+    usage: /setplayerjoin <player> [message]
+
+  setplayerquit:
+    description: Set another player's quit message (leave message empty to reset)
+    usage: /setplayerquit <player> [message]
+
+  customjoin:
+    description: Shows the plugin version
+    usage: /customjoin
+
+permissions:
+  customjoin.*:
+    description: Gives access to all CustomJoin commands
+    children:
+      customjoin.set: true
+      customjoin.colors: true
+      customjoin.formats: true
+
+  customjoin.set:
+    description: Gives access to all set commands
+    default: op
+    children:
+      customjoin.set.own: true
+
+  customjoin.set.own:
+    description: Allows players to set their own messages
+    default: op
+
+  customjoin.colors:
+    description: Allows use of color codes in messages
+    default: op
+
+  customjoin.formats:
+    description: Allows use of format codes in messages
+    default: op
