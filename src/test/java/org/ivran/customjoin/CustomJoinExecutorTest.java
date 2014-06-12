@@ -1,4 +1,4 @@
-package test;
+package org.ivran.customjoin;
 
 import static org.ivran.customjoin.ResourceHelper.formatMessage;
 import static org.ivran.customjoin.ResourceHelper.getColor;

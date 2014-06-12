@@ -1,4 +1,4 @@
-package test;
+package org.ivran.customjoin;
 
 import static org.junit.Assert.assertEquals;
 

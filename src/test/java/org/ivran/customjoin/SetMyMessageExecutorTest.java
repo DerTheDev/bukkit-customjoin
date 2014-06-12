@@ -1,8 +1,9 @@
-package test;
+package org.ivran.customjoin;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,9 +13,10 @@ import java.util.Collection;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.ivran.customjoin.FormatCodes;
 import org.ivran.customjoin.FormatManager;
-import org.ivran.customjoin.command.SetMessageExecutor;
+import org.ivran.customjoin.command.SetMyMessageExecutor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -23,30 +25,32 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 @RunWith(Parameterized.class)
-public class SetMessageExecutorTest {
+public class SetMyMessageExecutorTest {
 
   @Parameters
   public static Collection<Object[]> params() {
     return Arrays.asList(new Object[][] {
         {"join"},
-        {"quit"},
-        {"kick"}
+        {"quit"}
     });
   }
 
   @Mock private FileConfiguration config;
   @Mock private FormatManager manager;
-  @Mock private CommandSender sender;
   @Mock private Command command;
 
-  private final SetMessageExecutor executor;
+  private final CommandSender sender;
+  private final SetMyMessageExecutor executor;
   private final String eventName;
   private final String newFormat;
 
-  public SetMessageExecutorTest(String eventName) {
+  public SetMyMessageExecutorTest(String eventName) {
     MockitoAnnotations.initMocks(this);
 
-    executor = new SetMessageExecutor(config, manager, eventName);
+    sender = mock(Player.class);
+    when(sender.getName()).thenReturn("Steve");
+
+    executor = new SetMyMessageExecutor(config, manager, eventName);
     this.eventName = eventName;
     newFormat = "&k&a%player has entered the server";
   }
@@ -59,7 +63,7 @@ public class SetMessageExecutorTest {
     when(config.getInt("message-limit")).thenReturn(1);
 
     doThrow(new RuntimeException("Message was too long, manager.setFormat called anyway"))
-    .when(manager).setFormat(anyString(), anyString());
+    .when(manager).setFormat(anyString(), anyString(), anyString());
 
     assertTrue(executor.onCommand(sender, command, "", format.split(" ")));
   }
@@ -67,7 +71,7 @@ public class SetMessageExecutorTest {
   @Test
   public void testWithoutPermission() {
     doThrow(new RuntimeException("Player did something without permission"))
-    .when(manager).setFormat(anyString(), anyString());
+    .when(manager).setFormat(anyString(), anyString(), anyString());
 
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
   }
@@ -75,9 +79,9 @@ public class SetMessageExecutorTest {
   @Test
   public void testWithoutPlayerName() {
     when(sender.hasPermission(anyString())).thenReturn(true);
-    when(config.getBoolean("require-player-name.set")).thenReturn(true);
+    when(config.getBoolean("require-player-name.setmy")).thenReturn(true);
 
-    final SetMessageExecutor executor = new SetMessageExecutor(config, manager, eventName);
+    final SetMyMessageExecutor executor = new SetMyMessageExecutor(config, manager, eventName);
 
     doThrow(new RuntimeException("%player was not in the format, manager.setFormat called anyway"))
     .when(manager).setFormat(anyString(), anyString());
@@ -93,7 +97,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(manager).setFormat(eventName, newFormat);
+    verify(manager).setFormat(eventName, sender.getName(), newFormat);
   }
 
   @Test
@@ -103,7 +107,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(manager).setFormat(eventName, FormatCodes.stripColors(newFormat));
+    verify(manager).setFormat(eventName, sender.getName(), FormatCodes.stripColors(newFormat));
   }
 
   @Test
@@ -113,7 +117,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", newFormat.split(" ")));
 
-    verify(manager).setFormat(eventName, FormatCodes.stripFormats(newFormat));
+    verify(manager).setFormat(eventName, sender.getName(), FormatCodes.stripFormats(newFormat));
   }
 
   @Test
@@ -122,7 +126,7 @@ public class SetMessageExecutorTest {
 
     assertTrue(executor.onCommand(sender, command, "", new String[] {}));
 
-    verify(manager).setFormat(eventName, null);
+    verify(manager).setFormat(eventName, sender.getName(), null);
   }
 
 }
