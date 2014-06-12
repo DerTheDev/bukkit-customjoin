@@ -1,5 +1,0 @@
-# To disable a message, set the format to 'none'.
-default:
-  join: '&e%player joined the game'
-  quit: '&e%player left the game'
-  kick: '&e%player was kicked: %reason'
