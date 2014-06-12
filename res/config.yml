@@ -1,0 +1,23 @@
+# Always put your messages in single-quotes! Otherwise the
+# YAML parser will not be able to parse the messages correctly!
+# Also, if you want to use special characters, remember to save
+# the file with the UTF-8 encoding.
+
+# This will force the plugin to use the actual player name instead of the
+# display name. Set this to true if you are getting problems with changing
+# names in login- and logout-messages.
+force-real-name: false
+
+# Limit the length of custom message formats. Set to 0 to disable.
+message-limit: 70
+
+# Require %player to be in the format for the specified commands.
+require-player-name:
+  # For /setjoin, /setquit and /setkick
+  set: false
+  
+  # For /setmyjoin and /setmyquit
+  setmy: false
+  
+  # For /setplayerjoin and /setplayerquit
+  setplayer: false

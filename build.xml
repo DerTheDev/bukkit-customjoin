@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="CustomJoin" default="dist">
+
+  <property name="dir.src" location="src" />
+  <property name="dir.res" location="res" />
+  <property name="dir.build" location="build" />
+  <property name="dir.dist" location="dist" />
+  <property name="dir.lib" location="lib" />
+
+  <property name="version" value="1.5.2" />
+
+  <property name="lib.bukkit" value="${dir.lib}/craftbukkit-1.7.2-R0.3.jar" />
+
+  <target name="init">
+    <mkdir dir="${dir.build}" />
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${dir.src}" destdir="${dir.build}" excludes="**/*Test.java" includeantruntime="true">
+      <classpath location="${lib.bukkit}" />
+    </javac>
+  </target>
+
+  <target name="resources">
+    <copy todir="${dir.build}">
+      <fileset dir="${dir.res}" />
+    </copy>
+
+    <replace file="${dir.build}/plugin.yml" token="%VERSION%" value="${version}" />
+  </target>
+
+  <target name="dist" depends="compile, resources">
+    <mkdir dir="${dir.dist}" />
+
+    <jar jarfile="${dir.dist}/${ant.project.name}-${version}.jar" basedir="${dir.build}" />
+  </target>
+
+  <target name="clean">
+    <delete dir="${dir.build}" />
+    <delete dir="${dir.dist}" />
+  </target>
+
+</project>
