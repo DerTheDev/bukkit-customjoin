@@ -11,6 +11,30 @@
   	<maven.compiler.source>1.7</maven.compiler.source>
   	<maven.compiler.target>1.7</maven.compiler.target>
   </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>1.5.3</version>
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>                    
+          </execution>
+        </executions>
+        <configuration>
+          <ignoreMissingFile>true</ignoreMissingFile>
+          <file>target/classes/plugin.yml</file>
+          <regex>false</regex>
+          <token>%VERSION%</token>
+          <value>${project.version}</value>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <repositories>
     <repository>
 	  <id>bukkit-repo</id>
